@@ -189,6 +189,7 @@ class artikel_sekolah extends MX_Controller {
 						$in_data['id_sekolah_profil'] = $this->session->userdata("id_sekolah");
 						$in_data['tanggal'] = time()+3600*7;;
 						$in_data['stts'] = "0";
+						$in_data['author'] = "operator";
 						$this->db->insert("dlmbg_sekolah_artikel",$in_data);
 
 				

@@ -41,6 +41,36 @@
 
 
 <div class="cleaner_h20"></div>
+
+<div id="sub-kategori">
+	<h1>BERITA PENGAWAS SEKOLAH</h1>
+	<ul>
+		<?php echo $dt_berita_pengawas; ?>
+	</ul>
 </div>
-<div class="cleaner_h0"></div>	
+
+<div id="sub-kategori">
+	<h1>ARTIKEL PENGAWAS SEKOLAH</h1>
+	<ul>
+		<?php echo $dt_artikel_pengawas; ?>
+	</ul>
+</div>
+
+<div id="sub-kategori">
+	<h1>AGENDA PENGAWAS SEKOLAH</h1>
+	<ul>
+		<?php echo $dt_agenda_pengawas; ?>
+	</ul>
+</div>
+
+<div id="sub-kategori">
+	<h1>PENGUMUMAN PENGAWAS SEKOLAH</h1>
+	<ul>
+		<?php echo $dt_pengumuman_pengawas; ?>
+	</ul>
+</div>
+
+
+</div>
+<div class="cleaner_h20"></div>	
 </div>

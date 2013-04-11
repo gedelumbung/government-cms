@@ -247,7 +247,7 @@ class app_global_operator_model extends CI_Model {
 		}
 
 		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.gambar, b.nama_sekolah, a.id_sekolah_artikel, a.stts from dlmbg_sekolah_artikel a left join dlmbg_sekolah_profil b 
-		on a.id_sekolah_profil=b.id_sekolah_profil where a.id_sekolah_profil='".$this->session->userdata("id_sekolah")."' ".$query_add."");
+		on a.id_sekolah_profil=b.id_sekolah_profil where a.id_sekolah_profil='".$this->session->userdata("id_sekolah")."' and author='operator' ".$query_add."");
 
 		$config['base_url'] = base_url() . 'operator/artikel_sekolah/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
@@ -260,7 +260,7 @@ class app_global_operator_model extends CI_Model {
 		$this->pagination->initialize($config);
 
 		$w = $this->db->query("select a.judul, a.tanggal, a.gambar, a.id_sekolah_artikel, b.nama_sekolah, a.stts from dlmbg_sekolah_artikel a left join dlmbg_sekolah_profil b 
-		on a.id_sekolah_profil=b.id_sekolah_profil where a.id_sekolah_profil='".$this->session->userdata("id_sekolah")."' ".$query_add." order by a.judul ASC 
+		on a.id_sekolah_profil=b.id_sekolah_profil where a.id_sekolah_profil='".$this->session->userdata("id_sekolah")."' and author='operator' ".$query_add." order by a.judul ASC 
 		LIMIT ".$offset.",".$limit."");
 		
 		$hasil .= "<table width='100%' style='border-collapse:collapse;' cellpadding='8' cellspacing='0' border='1' width='100%'>

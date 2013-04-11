@@ -165,6 +165,54 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_menu_artikel_pengawas($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$w = $this->db->order_by("id_pengawas_artikel","DESC")->get_where("dlmbg_pengawas_artikel",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4><a href='".base_url()."web/artikel_pengawas/detail/".$h->id_pengawas_artikel."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		return $hasil;
+	}
+	 
+	public function generate_menu_berita_pengawas($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$w = $this->db->order_by("id_pengawas_berita","DESC")->get_where("dlmbg_pengawas_berita",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4><a href='".base_url()."web/berita_pengawas/detail/".$h->id_pengawas_berita."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		return $hasil;
+	}
+	 
+	public function generate_menu_agenda_pengawas($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$w = $this->db->order_by("id_pengawas_agenda","DESC")->get_where("dlmbg_pengawas_agenda",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4><a href='".base_url()."web/agenda_pengawas/detail/".$h->id_pengawas_agenda."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		return $hasil;
+	}
+	 
+	public function generate_menu_pengumuman_pengawas($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$w = $this->db->order_by("id_pengawas_pengumuman","DESC")->get_where("dlmbg_pengawas_pengumuman",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4><a href='".base_url()."web/pengumuman_pengawas/detail/".$h->id_pengawas_pengumuman."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		return $hasil;
+	}
+	 
 	public function generate_menu_galeri_kegiatan($limit,$offset)
 	{
 		$hasil="";
@@ -358,6 +406,59 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_berita_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['id_unit_kerja']=="semua")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['id_unit_kerja'] = $filter['id_unit_kerja']; 
+				$where['tanggal'] = $filter['tanggal']; 
+				$query_add = "and a.id_unit_kerja='".$where['id_unit_kerja']."' and 
+				SUBSTRING(DATE_FORMAT(FROM_UNIXTIME(a.tanggal-3600*7), '%d/%m/%Y'),1,10)='".$where['tanggal']."'";
+			}
+		}
+
+		$page=$offset;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$tot_hal = $this->db->query("select * from dlmbg_pengawas_berita a where a.stts='".$where['stts']."' ".$query_add."");
+		$config['base_url'] = base_url() . 'web/berita_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select * from dlmbg_pengawas_berita a where a.stts='".$where['stts']."' ".$query_add." 
+		order by id_pengawas_berita DESC limit ".$offset.", ".$limit."");
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div id="news-list">
+			<img src="'.base_url().'asset/images/berita_pengawas/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4><h1><a href="'.base_url().'web/berita_pengawas/detail/'.$h->id_pengawas_berita.'/'.url_title(strtolower($h->judul)).'">'.$h->judul.'</a></h1>
+			'.substr($h->isi,0,200).'.... <a href="'.base_url().'web/berita_pengawas/detail/'.$h->id_pengawas_berita.'/'.url_title(strtolower($h->judul)).'"><b>(Baca Selengkapnya)</b></a>
+			</div>';
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_detail_berita($id_param,$tipe)
 	{
 		$hasil="";
@@ -377,6 +478,28 @@ class app_global_model extends CI_Model {
 			<div class="cleaner_h10"></div>
 			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
 			Ditulis oleh : '.$h->usr.' - Bidang : '.$h->bidang.'
+			</span>
+			<div id="news-list-detail">
+			<img src="'.base_url().'asset/images/berita/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
+			'.$h->isi.'
+			</div>';
+		}
+		return $hasil;
+	}
+	 
+	public function generate_detail_berita_pengawas($id_param)
+	{
+		$hasil="";
+		$w = $this->db->query("select a.id_pengawas_berita, a.judul, a.isi, a.gambar, a.tanggal, b.unit_kerja, c.nama_user_pengawas as usr from dlmbg_pengawas_berita a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja left join dlmbg_user_pengawas c on a.id_user_pengawas=c.id_user_pengawas where a.id_pengawas_berita='".$id_param."' and a.stts='1'");
+		
+		foreach($w->result() as $h)
+		{
+			$hasil .= '
+			<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div>
+			<div class="cleaner_h10"></div>
+			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
+			Ditulis oleh : '.$h->usr.' - Unit Kerja : '.$h->unit_kerja.'
 			</span>
 			<div id="news-list-detail">
 			<img src="'.base_url().'asset/images/berita/thumb/'.$h->gambar.'" />
@@ -430,6 +553,49 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_pengumuman_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['id_unit_kerja']=="semua")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['id_unit_kerja'] = $filter['id_unit_kerja']; 
+				$where['tanggal'] = $filter['tanggal']; 
+				$query_add = "and a.id_unit_kerja='".$where['id_unit_kerja']."' and 
+				SUBSTRING(DATE_FORMAT(FROM_UNIXTIME(a.tanggal-3600*7), '%d/%m/%Y'),1,10)='".$where['tanggal']."'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select * from dlmbg_pengawas_pengumuman a where a.stts='".$where['stts']."' ".$query_add."");
+		$config['base_url'] = base_url() . 'web/pengumuman_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select * from dlmbg_pengawas_pengumuman a where a.stts='".$where['stts']."' ".$query_add." order 
+		by id_pengawas_pengumuman DESC LIMIT ".$offset.",".$limit."");
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4>
+			<a href='".base_url()."web/pengumuman_pengawas/detail/".$h->id_pengawas_pengumuman."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_detail_pengumuman($id_param,$tipe)
 	{
 		$hasil="";
@@ -446,6 +612,25 @@ class app_global_model extends CI_Model {
 		{
 			$hasil .= '<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div><div style="float:none; width:380px; font-size:12px; font-weight:bold; padding-top:5px;">
 			Ditulis oleh : '.$h->usr.' - Bidang : '.$h->bidang.'
+			</div>
+			<div id="news-list-detail">
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
+			'.$h->isi.'
+			</div>';
+		}
+		return $hasil;
+	}
+	 
+	public function generate_detail_pengumuman_pengawas($id_param)
+	{
+		$hasil="";
+			
+		$w = $this->db->query("select a.id_pengawas_pengumuman, a.judul, a.isi, a.tanggal, b.unit_kerja, c.nama_user_pengawas as usr from dlmbg_pengawas_pengumuman a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja left join dlmbg_user_pengawas c on a.id_user_pengawas=c.id_user_pengawas where a.id_pengawas_pengumuman='".$id_param."' and a.stts='1'");
+		
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div><div style="float:none; width:380px; font-size:12px; font-weight:bold; padding-top:5px;">
+			Ditulis oleh : '.$h->usr.' - Unit Kerja : '.$h->unit_kerja.'
 			</div>
 			<div id="news-list-detail">
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
@@ -498,6 +683,49 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_agenda_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['id_unit_kerja']=="semua")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['id_unit_kerja'] = $filter['id_unit_kerja']; 
+				$where['tanggal'] = $filter['tanggal']; 
+				$query_add = "and a.id_unit_kerja='".$where['id_unit_kerja']."' and 
+				SUBSTRING(DATE_FORMAT(FROM_UNIXTIME(a.tanggal-3600*7), '%d/%m/%Y'),1,10)='".$where['tanggal']."'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select * from dlmbg_pengawas_agenda a where a.stts='".$where['stts']."' ".$query_add."");
+		$config['base_url'] = base_url() . 'web/agenda_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select * from dlmbg_pengawas_agenda a where a.stts='".$where['stts']."' ".$query_add." order by a.id_pengawas_agenda DESC
+		LIMIT ".$offset.",".$limit."");
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<li><h4>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</h4>
+			<a href='".base_url()."web/agenda_pengawas/detail/".$h->id_pengawas_agenda."/".url_title(strtolower($h->judul))."'' title='".$h->judul."'>".$h->judul."</a></li>";
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_detail_agenda($id_param,$tipe)
 	{
 		$hasil="";
@@ -514,6 +742,24 @@ class app_global_model extends CI_Model {
 		{
 			$hasil .= '<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div><div style="float:none; width:380px; font-size:12px; font-weight:bold; padding-top:5px;">
 			Ditulis oleh : '.$h->usr.' - Bidang : '.$h->bidang.'
+			</div>
+			<div id="news-list-detail">
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
+			'.$h->isi.'
+			</div>';
+		}
+		return $hasil;
+	}
+	 
+	public function generate_detail_agenda_pengawas($id_param)
+	{
+		$hasil="";
+		$w="";
+		$w = $this->db->query("select a.id_pengawas_agenda, a.judul, a.isi, a.tanggal, b.unit_kerja, c.nama_user_pengawas as usr from dlmbg_pengawas_agenda a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja left join dlmbg_user_pengawas c on a.id_user_pengawas=c.id_user_pengawas where a.id_pengawas_agenda='".$id_param."' and a.stts='1'");
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div><div style="float:none; width:380px; font-size:12px; font-weight:bold; padding-top:5px;">
+			Ditulis oleh : '.$h->usr.' - Bidang : '.$h->unit_kerja.'
 			</div>
 			<div id="news-list-detail">
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
@@ -654,6 +900,54 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_detail_artikel_uptd($id_param)
+	{
+		$hasil="";
+		$w="";
+		
+		$w = $this->db->query("select a.id_uptd_artikel, a.judul, a.isi, a.gambar, a.tanggal, b.kecamatan, c.nama_operator as usr from dlmbg_uptd_artikel a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan left join dlmbg_admin_uptd c on a.id_admin_uptd=c.id_admin_uptd where a.id_uptd_artikel='".$id_param."' and a.stts='1'");
+		
+		foreach($w->result() as $h)
+		{
+			$hasil .= '
+			<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div>
+			<div class="cleaner_h10"></div>
+			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
+			Ditulis oleh : '.$h->usr.' - Sekolah : '.$h->kecamatan.'
+			</span>
+			<div id="news-list-detail">
+			<img src="'.base_url().'asset/images/artikel-uptd/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
+			'.$h->isi.'
+			</div>';
+		}
+		return $hasil;
+	}
+	 
+	public function generate_detail_artikel_pengawas($id_param)
+	{
+		$hasil="";
+		$w="";
+		
+		$w = $this->db->query("select a.id_pengawas_artikel, a.judul, a.isi, a.gambar, a.tanggal, b.unit_kerja, c.nama_user_pengawas as usr from dlmbg_pengawas_artikel a left join dlmbg_super_unit_kerja b on a.id_super_unit_kerja=b.id_super_unit_kerja left join dlmbg_user_pengawas c on a.id_user_pengawas=c.id_user_pengawas where a.id_pengawas_artikel='".$id_param."' and a.stts='1'");
+		
+		foreach($w->result() as $h)
+		{
+			$hasil .= '
+			<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div>
+			<div class="cleaner_h10"></div>
+			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
+			Ditulis oleh : '.$h->usr.' - Sekolah : '.$h->unit_kerja.'
+			</span>
+			<div id="news-list-detail">
+			<img src="'.base_url().'asset/images/artikel-uptd/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
+			'.$h->isi.'
+			</div>';
+		}
+		return $hasil;
+	}
+	 
 	public function generate_index_artikel_sekolah($limit,$offset)
 	{
 		$hasil="";
@@ -684,6 +978,88 @@ class app_global_model extends CI_Model {
 			<img src="'.base_url().'asset/images/artikel-sekolah/thumb/'.$h->gambar.'" />
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4><h1><a href="'.base_url().'web/artikel_sekolah/detail/'.$h->id_sekolah_artikel.'/'.url_title(strtolower($h->judul)).'">'.$h->judul.'</a></h1>
 			'.substr($h->isi,0,200).'.... <a href="'.base_url().'web/artikel_sekolah/detail/'.$h->id_sekolah_artikel.'/'.url_title(strtolower($h->judul)).'"><b>(Baca Selengkapnya)</b></a>
+			</div>';
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_artikel_uptd($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		if($this->session->userdata("by_id_kecamatan")!="")
+		{
+			$where['id_kecamatan'] = $this->session->userdata("by_id_kecamatan");
+		}
+
+		$page=$offset;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$tot_hal = $this->db->get_where("dlmbg_uptd_artikel",$where);
+		$config['base_url'] = base_url() . 'web/artikel_uptd/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->order_by('id_uptd_artikel','desc')->get_where("dlmbg_uptd_artikel",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div id="news-list">
+			<img src="'.base_url().'asset/images/artikel-uptd/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4><h1><a href="'.base_url().'web/artikel_uptd/detail/'.$h->id_uptd_artikel.'/'.url_title(strtolower($h->judul)).'">'.$h->judul.'</a></h1>
+			'.substr($h->isi,0,200).'.... <a href="'.base_url().'web/artikel_uptd/detail/'.$h->id_uptd_artikel.'/'.url_title(strtolower($h->judul)).'"><b>(Baca Selengkapnya)</b></a>
+			</div>';
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_artikel_pengawas($limit,$offset)
+	{
+		$hasil="";
+		$where['stts'] = 1;
+		if($this->session->userdata("by_id_unit_kerja")!="semua")
+		{
+			$where['id_super_unit_kerja'] = $this->session->userdata("by_id_unit_kerja");
+		}
+
+		$page=$offset;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$tot_hal = $this->db->get_where("dlmbg_pengawas_artikel",$where);
+		$config['base_url'] = base_url() . 'web/artikel_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->order_by('id_pengawas_artikel','desc')->get_where("dlmbg_pengawas_artikel",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div id="news-list">
+			<img src="'.base_url().'asset/images/artikel-pengawas/thumb/'.$h->gambar.'" />
+			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4><h1><a href="'.base_url().'web/artikel_pengawas/detail/'.$h->id_pengawas_artikel.'/'.url_title(strtolower($h->judul)).'">'.$h->judul.'</a></h1>
+			'.substr($h->isi,0,200).'.... <a href="'.base_url().'web/artikel_pengawas/detail/'.$h->id_pengawas_artikel.'/'.url_title(strtolower($h->judul)).'"><b>(Baca Selengkapnya)</b></a>
 			</div>';
 		}
 		$hasil .= '<div class="cleaner_h20"></div>';
@@ -796,6 +1172,50 @@ class app_global_model extends CI_Model {
 				<tr><td width='60'>NIP</td><td width='20'>:</td><td>".$h->nip."</td></tr>
 				<tr><td>JABATAN</td><td>:</td><td>".$h->jabatan."</td></tr>
 				<tr><td>BIDANG</td><td>:</td><td>".$h->bidang."</td></tr>
+			</table>
+			<div class='cleaner_h0'></div></div>";
+			$hasil .= '<div class="cleaner_h0"></div>';
+			$hasil .= "<div id='label-buku-tamu'>KONTAK : ".$h->kontak."</div>";
+			$hasil .= '<div class="cleaner_h10"></div>';
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_data_pengawas_sekolah($limit,$offset)
+	{
+		$hasil="";
+		$page=$offset;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$tot_hal = $this->db->query("select a.nama, a.nip, a.jabatan, b.unit_kerja, a.kontak from dlmbg_super_pengawas_sekolah a 
+		left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja order by a.id_unit_kerja DESC");
+		$config['base_url'] = base_url() . 'web/pengawas_sekolah/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.nama, a.nip, a.jabatan, b.unit_kerja, a.kontak from dlmbg_super_pengawas_sekolah a 
+		left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja order by a.id_unit_kerja DESC LIMIT ".$offset.",".$limit."");
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<div id='label-buku-tamu'><b>NAMA : ".$h->nama."</b></div>";
+			$hasil .= '<div class="cleaner_h0"></div>';
+			$hasil .= "<div id='content-buku-tamu'><img src='".base_url()."asset/theme/".$_SESSION['site_theme']."/images/user-icon.png'>
+			<table>
+				<tr><td width='60'>NIP</td><td width='20'>:</td><td>".$h->nip."</td></tr>
+				<tr><td>JABATAN</td><td>:</td><td>".$h->jabatan."</td></tr>
+				<tr><td>UNIT KERJA</td><td>:</td><td>".$h->unit_kerja."</td></tr>
 			</table>
 			<div class='cleaner_h0'></div></div>";
 			$hasil .= '<div class="cleaner_h0"></div>';
@@ -962,6 +1382,16 @@ class app_global_model extends CI_Model {
 			{
 				$query_add = "";
 			}
+			else if($filter['id_jenjang_pendidikan']!="semua" &&  $filter['id_kecamatan']=="semua")
+			{
+				$where['id_jenjang_pendidikan'] = $filter['id_jenjang_pendidikan']; 
+				$query_add = "where a.id_jenjang_pendidikan='".$where['id_jenjang_pendidikan']."'";
+			}
+			else if($filter['id_jenjang_pendidikan']=="semua" &&  $filter['id_kecamatan']!="semua")
+			{
+				$where['id_kecamatan'] = $filter['id_kecamatan']; 
+				$query_add = "where a.id_kecamatan='".$where['id_kecamatan']."'";
+			}
 			else
 			{
 				$where['id_jenjang_pendidikan'] = $filter['id_jenjang_pendidikan']; 
@@ -1078,6 +1508,61 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_galeri_uptd($id_param,$limit,$offset)
+	{
+		$hasil="";
+		$where['id_kecamatan'] = $id_param;
+		$where['stts'] = 1;
+
+		$page=$offset;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$tot_hal = $this->db->get_where("dlmbg_uptd_galeri_uptd",$where);
+		$config['base_url'] = base_url() . 'web/galeri_uptd/kecamatan/'.$id_param.'/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 5;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+		
+		$w = $this->db->get_where("dlmbg_uptd_galeri_uptd",$where,$limit,$offset);
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<div class="border-photo-gallery-index"><div class="hide-photo-gallery-index"><a href="'.base_url().'asset/images/galeri-uptd/medium/'.$h->gambar.'" rel="galeri" title="'.$h->judul.'"><img src="'.base_url().'asset/images/galeri-uptd/thumb/'.$h->gambar.'" title="'.$h->judul.'" /></a></div></div>';
+		}
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_kecamatan()
+	{
+		$hasil="";
+		$w = $this->db->get("dlmbg_super_kecamatan");
+		$hasil .= '<table style="border-collapse:collapse;" cellpadding="7" cellspacing="0" border="1" width="100%">';
+		$hasil .= '<tr align="center" bgcolor="#F2F2F2">
+					<td width="20">No</td>
+					<td>Kecamatan</td></tr>';
+		$i=1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= '<tr>
+					<td>'.$i.'</td>
+					<td><a href="'.base_url().'web/galeri_uptd/kecamatan/'.$h->id_super_kecamatan.'/'.strtolower(url_title($h->kecamatan)).'">
+					'.$h->kecamatan.'</a></td>';
+			$i++;
+		}
+		$hasil .= '</table>';
+		return $hasil;
+	}
+	 
 	public function generate_index_guru_sekolah($id_param,$limit,$offset)
 	{
 		$hasil="";
@@ -1154,6 +1639,16 @@ class app_global_model extends CI_Model {
 			{
 				$query_add = "";
 			}
+			else if($filter['id_jenjang_pendidikan']!="semua" &&  $filter['id_kecamatan']=="semua")
+			{
+				$where['id_jenjang_pendidikan'] = $filter['id_jenjang_pendidikan']; 
+				$query_add = "where a.id_jenjang_pendidikan='".$where['id_jenjang_pendidikan']."'";
+			}
+			else if($filter['id_jenjang_pendidikan']=="semua" &&  $filter['id_kecamatan']!="semua")
+			{
+				$where['id_kecamatan'] = $filter['id_kecamatan']; 
+				$query_add = "where a.id_kecamatan='".$where['id_kecamatan']."'";
+			}
 			else
 			{
 				$where['id_jenjang_pendidikan'] = $filter['id_jenjang_pendidikan']; 
@@ -1217,6 +1712,76 @@ class app_global_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_pegawai($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['id_kecamatan']=="semua")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['id_kecamatan'] = $filter['id_kecamatan']; 
+				$query_add = "where a.id_kecamatan='".$where['id_kecamatan']."'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.tempat_lahir, 
+		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan
+		".$query_add."");
+		$config['base_url'] = base_url() . 'web/data_pegawai/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.tempat_lahir, 
+		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan 
+		 ".$query_add." order by a.nama ASC LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table width='100%' style='border-collapse:collapse;' cellpadding='8' cellspacing='0' border='1' width='100%'>
+					<tr bgcolor='#F2F2F2' align='center'>
+					<td>No.</td>
+					<td>Nama</td>
+					<td>Jenis Kelamin</td>
+					<td>Status PNS</td>
+					<td>Golongan</td>
+					<td>Tugas Sebagai</td>
+					<td>Kecamatan</td>
+					<td>Tempat Lahir</td>
+					<td>Usia</td>
+					<td>MK</td>
+					</tr>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->nama."</td>
+					<td>".$h->jk."</td>
+					<td>".$h->status_pns."</td>
+					<td>".$h->golongan."</td>
+					<td>".$h->tugas."</td>
+					<td>".$h->kecamatan."</td>
+					<td>".$h->tempat_lahir."</td>
+					<td>".selisih_tanggah($h->tanggal_lahir,date("m/d/Y"))."</td>
+					<td>".selisih_tanggah($h->tanggal_bertugas,date("m/d/Y"))."</td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_siswa($limit,$offset,$filter=array())
 	{
 		$hasil="";
@@ -1226,6 +1791,16 @@ class app_global_model extends CI_Model {
 			if($filter['id_jenjang_pendidikan']=="semua" &&  $filter['id_kecamatan']=="semua")
 			{
 				$query_add = "";
+			}
+			else if($filter['id_jenjang_pendidikan']!="semua" &&  $filter['id_kecamatan']=="semua")
+			{
+				$where['id_jenjang_pendidikan'] = $filter['id_jenjang_pendidikan']; 
+				$query_add = "where a.id_jenjang_pendidikan='".$where['id_jenjang_pendidikan']."'";
+			}
+			else if($filter['id_jenjang_pendidikan']=="semua" &&  $filter['id_kecamatan']!="semua")
+			{
+				$where['id_kecamatan'] = $filter['id_kecamatan']; 
+				$query_add = "where a.id_kecamatan='".$where['id_kecamatan']."'";
 			}
 			else
 			{

@@ -29,6 +29,11 @@ class pengumuman_dinas extends MX_Controller {
 	  
       $d['dt_index_pengumuman'] = $this->app_global_model->generate_index_pengumuman_dinas($id_param,$this->config->item("limit_item_medium"),$uri);
 	  
+	  $d['dt_berita_pengawas'] = $this->app_global_model->generate_menu_berita_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+	  $d['dt_artikel_pengawas'] = $this->app_global_model->generate_menu_artikel_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+	  $d['dt_pengumuman_pengawas'] = $this->app_global_model->generate_menu_pengumuman_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+	  $d['dt_agenda_pengawas'] = $this->app_global_model->generate_menu_agenda_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+	  
 	  $where['id_super_bidang'] = $id_param;
 	  $get = $this->db->get_where("dlmbg_super_bidang",$where);
 	  if($get->num_rows()==0)
@@ -77,6 +82,11 @@ class pengumuman_dinas extends MX_Controller {
 			$d['dt_galeri'] = $this->app_global_model->generate_menu_galeri_kegiatan(8,0);
 			$d['dt_berita_slide_content'] = $this->app_global_model->generate_menu_slider_content($_SESSION['site_limit_berita_slider'],0);
 			$d['dt_berita_slide_navigator'] = $this->app_global_model->generate_menu_slider_navigator($_SESSION['site_limit_berita_slider'],0);
+	  
+			  $d['dt_berita_pengawas'] = $this->app_global_model->generate_menu_berita_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+			  $d['dt_artikel_pengawas'] = $this->app_global_model->generate_menu_artikel_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+			  $d['dt_pengumuman_pengawas'] = $this->app_global_model->generate_menu_pengumuman_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
+			  $d['dt_agenda_pengawas'] = $this->app_global_model->generate_menu_agenda_pengawas($_SESSION['limit_footer_artikel_sekolah'],0);
 
 			$d['dt_detail_pengumuman'] = $this->app_global_model->generate_detail_pengumuman($id_pengumuman,$tipe);
 

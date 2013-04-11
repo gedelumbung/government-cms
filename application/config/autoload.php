@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('app_load_config_model','app_global_model','app_user_login_model','app_global_operator_model','app_global_admin_dinas_model','app_global_superadmin_model');
+$autoload['model'] = array('app_load_config_model','app_global_model','app_user_login_model','app_global_operator_model','app_global_admin_dinas_model','app_global_superadmin_model','app_global_uptd_model','app_global_pengawas_model');
 
 
 /* End of file autoload.php */

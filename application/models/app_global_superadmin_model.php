@@ -83,6 +83,157 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_artikel_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.gambar, b.unit_kerja, a.id_pengawas_artikel, a.stts from dlmbg_pengawas_artikel a left join 
+		dlmbg_super_unit_kerja b on a.id_super_unit_kerja=b.id_super_unit_kerja ".$query_add."");
+
+		$config['base_url'] = base_url() . 'superadmin/artikel_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.tanggal, a.gambar, b.unit_kerja, a.id_pengawas_artikel, a.stts from dlmbg_pengawas_artikel a left join dlmbg_super_unit_kerja b 
+		on a.id_super_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.stts ASC LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Unit Kerja</th>
+					<th>Status</th>
+					<th></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->unit_kerja."</td>
+					<td>".$st."</td>
+					<td>";
+					$hasil .= "";
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/artikel_pengawas/approve/".$h->id_pengawas_artikel."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/artikel_pengawas/approve/".$h->id_pengawas_artikel."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/artikel_pengawas/hapus/".$h->id_pengawas_artikel."/".$h->gambar."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_artikel_uptd($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.gambar, b.kecamatan, a.id_uptd_artikel, a.stts from dlmbg_uptd_artikel a left join dlmbg_super_kecamatan b 
+		on a.id_kecamatan=b.id_super_kecamatan ".$query_add."");
+
+		$config['base_url'] = base_url() . 'superadmin/artikel_uptd/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.tanggal, a.gambar, b.kecamatan, a.id_uptd_artikel, a.stts from dlmbg_uptd_artikel a left join dlmbg_super_kecamatan b 
+		on a.id_kecamatan=b.id_super_kecamatan ".$query_add." order by a.stts ASC 
+		LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Kecamatan</th>
+					<th>Status</th>
+					<th></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->kecamatan."</td>
+					<td>".$st."</td>
+					<td>";
+					$hasil .= "";
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/artikel_uptd/approve/".$h->id_uptd_artikel."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/artikel_uptd/approve/".$h->id_uptd_artikel."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/artikel_uptd/hapus/".$h->id_uptd_artikel."/".$h->gambar."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_list_download($limit,$offset,$filter=array())
 	{
 		$hasil="";
@@ -316,6 +467,82 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_agenda_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.id_pengawas_agenda, b.unit_kerja, a.tanggal,   
+		a.stts from dlmbg_pengawas_agenda a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add."");
+
+		$config['base_url'] = base_url() . 'superadmin/agenda_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.id_pengawas_agenda, b.unit_kerja, a.tanggal,   
+		a.stts from dlmbg_pengawas_agenda a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.stts ASC
+		LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Unit Kerja</th>
+					<th>Status</th>
+					<th></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->unit_kerja."</td>
+					<td>".$st."</td>
+					<td>";
+					$hasil .= "";
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/agenda_pengawas/approve/".$h->id_pengawas_agenda."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/agenda_pengawas/approve/".$h->id_pengawas_agenda."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/agenda_pengawas/hapus/".$h->id_pengawas_agenda."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_pengumuman($limit,$offset,$filter=array())
 	{
 		$hasil="";
@@ -387,6 +614,83 @@ class app_global_superadmin_model extends CI_Model {
 			}
 			$hasil .= "<a href='".base_url()."superadmin/pengumuman/edit/".$h->id_multi_pengumuman."' class='btn btn-small'><i class='icon-edit'></i></a>";
 			$hasil .= "<a href='".base_url()."superadmin/pengumuman/hapus/".$h->id_multi_pengumuman."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_pengumuman_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.id_pengawas_pengumuman, b.unit_kerja,
+		a.stts from dlmbg_pengawas_pengumuman a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." 
+		order by a.stts ASC");
+
+		$config['base_url'] = base_url() . 'superadmin/pengumuman_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.tanggal, a.id_pengawas_pengumuman, b.unit_kerja,
+		a.stts from dlmbg_pengawas_pengumuman a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." 
+		order by a.stts ASC LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Unit Kerja</th>
+					<th>Status</th>
+					<th></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->unit_kerja."</td>
+					<td>".$st."</td>
+					<td>";
+					$hasil .= "";
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/pengumuman_pengawas/approve/".$h->id_pengawas_pengumuman."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/pengumuman_pengawas/approve/".$h->id_pengawas_pengumuman."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/pengumuman_pengawas/hapus/".$h->id_pengawas_pengumuman."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
 					</tr>";
 			$i++;
 		}
@@ -477,6 +781,82 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_berita_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.id_pengawas_berita, a.gambar, a.tanggal, b.unit_kerja, a.stts from 
+		dlmbg_pengawas_berita a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.stts ASC");
+
+		$config['base_url'] = base_url() . 'superadmin/berita_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.id_pengawas_berita, a.gambar, a.tanggal, b.unit_kerja, a.stts from 
+		dlmbg_pengawas_berita a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.stts ASC
+		 LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Unit Kerja</th>
+					<th>Status</th>
+					<th width='110'></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->unit_kerja."</td>
+					<td>".$st."</td>
+					<td>";
+					$hasil .= "";
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/berita_pengawas/approve/".$h->id_pengawas_berita."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/berita_pengawas/approve/".$h->id_pengawas_berita."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/berita_pengawas/hapus/".$h->id_pengawas_berita."/".$h->gambar."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_admin_dinas($limit,$offset,$filter=array())
 	{
 		$hasil="";
@@ -532,6 +912,70 @@ class app_global_superadmin_model extends CI_Model {
 					<td>";
 			$hasil .= "<a href='".base_url()."superadmin/admin_dinas/edit/".$h->id_admin_dinas."' class='btn btn-small'><i class='icon-edit'></i></a>";
 			$hasil .= "<a href='".base_url()."superadmin/admin_dinas/hapus/".$h->id_admin_dinas."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_user_pengawas($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['nama_user_pengawas']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['nama_user_pengawas'] = $filter['nama_user_pengawas']; 
+				$query_add = "where a.nama_user_pengawas like '%".$where['nama_user_pengawas']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.nama_user_pengawas, a.username_user_pengawas, b.unit_kerja, a.id_user_pengawas from 
+		dlmbg_user_pengawas a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.nama_user_pengawas ASC");
+
+		$config['base_url'] = base_url() . 'superadmin/user_pengawas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.nama_user_pengawas, a.username_user_pengawas, b.unit_kerja, a.id_user_pengawas from 
+		dlmbg_user_pengawas a left join dlmbg_super_unit_kerja b on a.id_unit_kerja=b.id_super_unit_kerja ".$query_add." order by a.nama_user_pengawas ASC
+		 LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Nama User Pengawas</th>
+					<th>Username User Pengawas</th>
+					<th>Unit Kerja</th>
+					<th width='110'><a href='".base_url()."superadmin/user_pengawas/tambah' class='btn btn'><i class='icon-plus'></i> Tambah</a></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->nama_user_pengawas."</td>
+					<td>".$h->username_user_pengawas."</td>
+					<td>".$h->unit_kerja."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."superadmin/user_pengawas/edit/".$h->id_user_pengawas."' class='btn btn-small'><i class='icon-edit'></i></a>";
+			$hasil .= "<a href='".base_url()."superadmin/user_pengawas/hapus/".$h->id_user_pengawas."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
 					</tr>";
 			$i++;
 		}
@@ -675,6 +1119,50 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_unit_kerja($limit,$offset,$filter)
+	{
+		$hasil="";
+
+		$tot_hal = $this->db->like('unit_kerja',$filter['unit_kerja'])->get("dlmbg_super_unit_kerja");
+
+		$config['base_url'] = base_url() . 'superadmin/unit_kerja/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->like('unit_kerja',$filter['unit_kerja'])->get("dlmbg_super_unit_kerja",$limit,$offset);
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Nama Unit Kerja</th>
+					<th width='110'><a href='".base_url()."superadmin/unit_kerja/tambah' class='btn btn'><i class='icon-plus'></i> Tambah</a></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->unit_kerja."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."superadmin/unit_kerja/edit/".$h->id_super_unit_kerja."' class='btn btn-small'><i class='icon-edit'></i></a>";
+			$hasil .= "<a href='".base_url()."superadmin/unit_kerja/hapus/".$h->id_super_unit_kerja."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_jenjang_pendidikan($limit,$offset,$filter)
 	{
 		$hasil="";
@@ -760,6 +1248,56 @@ class app_global_superadmin_model extends CI_Model {
 					<td>";
 			$hasil .= "<a href='".base_url()."superadmin/kepegawaian/edit/".$h->id_super_kepegawaian."' class='btn btn-small'><i class='icon-edit'></i></a>";
 			$hasil .= "<a href='".base_url()."superadmin/kepegawaian/hapus/".$h->id_super_kepegawaian."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_pengawas_sekolah($limit,$offset,$filter)
+	{
+		$hasil="";
+
+		$tot_hal = $this->db->like('nama',$filter['nama'])->get("dlmbg_super_pengawas_sekolah");
+
+		$config['base_url'] = base_url() . 'superadmin/pengawas_sekolah/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->like('nama',$filter['nama'])->get("dlmbg_super_pengawas_sekolah",$limit,$offset);
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>NIP</th>
+					<th>Nama</th>
+					<th>Jabatan</th>
+					<th>Kontak</th>
+					<th width='110'><a href='".base_url()."superadmin/pengawas_sekolah/tambah' class='btn btn'><i class='icon-plus'></i> Tambah</a></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->nip."</td>
+					<td>".$h->nama."</td>
+					<td>".$h->jabatan."</td>
+					<td>".$h->kontak."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."superadmin/pengawas_sekolah/edit/".$h->id_super_pengawas_sekolah."' class='btn btn-small'><i class='icon-edit'></i></a>";
+			$hasil .= "<a href='".base_url()."superadmin/pengawas_sekolah/hapus/".$h->id_super_pengawas_sekolah."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
 					</tr>";
 			$i++;
 		}
@@ -1318,6 +1856,66 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}	
 	 
+	public function generate_index_galeri_uptd($limit,$offset,$filter)
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['nama_kecamatan']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['nama_kecamatan'] = $filter['nama_kecamatan']; 
+				$query_add = "where a.nama_kecamatan like '%".$where['nama_kecamatan']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->like('kecamatan',$filter['nama_kecamatan'])->get("dlmbg_super_kecamatan");
+
+		$config['base_url'] = base_url() . 'superadmin/galeri_uptd/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query('select a.kecamatan, a.id_super_kecamatan, (select count(id_uptd_galeri_uptd) as jum from dlmbg_uptd_galeri_uptd where stts=0 and 
+		id_kecamatan=a.id_super_kecamatan) jum from dlmbg_super_kecamatan a '.$query_add.' order by jum DESC LIMIT '.$offset.','.$limit.'');
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Kecamatan</th>
+					<th>Moderation</th>
+					<th width='110'></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$jum="<span class='label label-info'>".$h->jum." foto</span>";
+			if($h->jum>0){$jum="<span class='label label-important'>".$h->jum." foto</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->kecamatan."</td>
+					<td>".$jum."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."superadmin/galeri_uptd/detail/".$h->id_super_kecamatan."' class='btn btn-small'><i class='icon-share'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}	
 	 
 	public function generate_index_foto_galeri_sekolah($id_sekolah,$limit,$offset)
 	{
@@ -1377,6 +1975,127 @@ class app_global_superadmin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_foto_galeri_uptd($id_kecamatan,$limit,$offset)
+	{
+		$hasil="";
+		$where['id_kecamatan'] = $id_kecamatan;
+		$tot_hal = $this->db->get_where("dlmbg_uptd_galeri_uptd",$where);
+
+		$config['base_url'] = base_url() . 'superadmin/galeri_uptd/detail/'.$id_kecamatan.'';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 5;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w =  $this->db->order_by("stts","ASC")->get_where("dlmbg_uptd_galeri_uptd",$where,$limit,$offset);
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Judul</th>
+					<th>Status</th>
+					<th>Gambar</th>
+					<th width='110'></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="<span class='label label-important'>Moderation</span>";
+			if($h->stts==1){$st="<span class='label label-success'>Approve</span>";}
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".$st."</td>
+					<td><img src='".base_url()."asset/images/galeri-uptd/thumb/".$h->gambar."' width='50'></td>
+					<td>";
+
+			if($h->stts==1)
+			{
+				$hasil .= "<a href='".base_url()."superadmin/galeri_uptd/approve/".$id_kecamatan."/".$h->id_uptd_galeri_uptd."/0' class='btn btn-small'><i class='icon-remove'></i></a>";
+			}
+			else
+			{
+				$hasil .= "<a href='".base_url()."superadmin/galeri_uptd/approve/".$id_kecamatan."/".$h->id_uptd_galeri_uptd."/1' class='btn btn-small'><i class='icon-ok'></i></a>";
+			}
+			$hasil .= "<a href='".base_url()."superadmin/galeri_uptd/hapus/".$id_kecamatan."/".$h->id_uptd_galeri_uptd."/".$h->gambar."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_user_uptd($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['nama_operator']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['nama_operator'] = $filter['nama_operator']; 
+				$query_add = "where a.nama_operator like '%".$where['nama_operator']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.nama_operator, a.username, b.kecamatan, a.id_admin_uptd from 
+		dlmbg_admin_uptd a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan ".$query_add." order by a.nama_operator ASC");
+
+		$config['base_url'] = base_url() . 'superadmin/admin_dinas/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.nama_operator, a.username, b.kecamatan, a.id_admin_uptd from 
+		dlmbg_admin_uptd a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan ".$query_add." order by a.nama_operator ASC
+		 LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Nama User UPTD</th>
+					<th>Username UPTD</th>
+					<th>Kecamatan</th>
+					<th width='110'><a href='".base_url()."superadmin/user_uptd/tambah' class='btn btn'><i class='icon-plus'></i> Tambah</a></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->nama_operator."</td>
+					<td>".$h->username."</td>
+					<td>".$h->kecamatan."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."superadmin/user_uptd/edit/".$h->id_admin_uptd."' class='btn btn-small'><i class='icon-edit'></i></a>";
+			$hasil .= "<a href='".base_url()."superadmin/user_uptd/hapus/".$h->id_admin_uptd."' onClick=\"return confirm('Anda yakin?');\" class='btn btn-small'><i class='icon-trash'></i></a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
 
 	
 	

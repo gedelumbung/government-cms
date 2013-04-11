@@ -43,6 +43,62 @@ class app_user_login_model extends CI_Model {
 			}
 		}
 		
+		else if($tipe=="uptd")
+		{
+			$cek['username'] 	= mysql_real_escape_string($data['username']);
+			$cek['password'] 	= md5(mysql_real_escape_string($data['password']).$this->config->item("key_login"));
+			$q_cek_login = $this->db->get_where('dlmbg_admin_uptd', $cek);
+			if(count($q_cek_login->result())>0)
+			{
+				foreach($q_cek_login->result() as $qad)
+				{
+					$sess_data['logged_in'] = 'yesGetMeLoginBaby';
+					$sess_data['nama_user_login'] = $qad->nama_operator;
+					$sess_data['id_kecamatan'] = $qad->id_kecamatan;
+					$sess_data['username'] = $qad->username;
+					$sess_data['id_admin_uptd'] = $qad->id_admin_uptd;
+					$sess_data['tipe_user'] = $tipe;
+					$get_p_kecamatan = $this->db->get_where("dlmbg_super_kecamatan",array("id_super_kecamatan"=>$qad->id_kecamatan))->row();
+					$sess_data['kecamatan'] = $get_p_kecamatan->kecamatan;
+					$this->session->set_userdata($sess_data);
+				}
+				redirect("uptd/dashboard");
+			}
+			else
+			{
+				$this->session->set_flashdata("result_login","Gagal Login. Username dan Password Tidak Cocok....");
+				redirect("auth/user_login");
+			}
+		}
+		
+		else if($tipe=="pengawas")
+		{
+			$cek['username_user_pengawas'] 	= mysql_real_escape_string($data['username']);
+			$cek['password'] 	= md5(mysql_real_escape_string($data['password']).$this->config->item("key_login"));
+			$q_cek_login = $this->db->get_where('dlmbg_user_pengawas', $cek);
+			if(count($q_cek_login->result())>0)
+			{
+				foreach($q_cek_login->result() as $qad)
+				{
+					$sess_data['logged_in'] = 'yesGetMeLoginBaby';
+					$sess_data['nama_user_login'] = $qad->nama_user_pengawas;
+					$sess_data['id_unit_kerja'] = $qad->id_unit_kerja;
+					$sess_data['username'] = $qad->username_user_pengawas;
+					$sess_data['id_user_pengawas'] = $qad->id_user_pengawas;
+					$sess_data['tipe_user'] = $tipe;
+					$get_p_kecamatan = $this->db->get_where("dlmbg_super_unit_kerja",array("id_super_unit_kerja"=>$qad->id_unit_kerja))->row();
+					$sess_data['unit_kerja'] = $get_p_kecamatan->unit_kerja;
+					$this->session->set_userdata($sess_data);
+				}
+				redirect("pengawas/dashboard");
+			}
+			else
+			{
+				$this->session->set_flashdata("result_login","Gagal Login. Username dan Password Tidak Cocok....");
+				redirect("auth/user_login");
+			}
+		}
+		
 		else if($tipe=="admin_dinas")
 		{
 			$cek['username_admin_dinas'] 	= mysql_real_escape_string($data['username']);

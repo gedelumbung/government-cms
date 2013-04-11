@@ -51,6 +51,7 @@
 			          		<li><a href="<?php echo base_url(); ?>superadmin/link"><i class="icon-resize-full"></i> Link Terkait</a></li>
 			          		<li><a href="<?php echo base_url(); ?>superadmin/kecamatan"><i class="icon-briefcase"></i> Kecamatan</a></li>
 			          		<li><a href="<?php echo base_url(); ?>superadmin/bidang"><i class="icon-th-list"></i> Bidang</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/unit_kerja"><i class="icon-tasks"></i> Unit Kerja</a></li>
 			          		<li><a href="<?php echo base_url(); ?>superadmin/jenjang_pendidikan"><i class="icon-signal"></i> Jenjang Pendidikan</a></li>
 	 		 				<li class="divider"></li>
 			          		<li><a href="<?php echo base_url(); ?>superadmin/user"><i class="icon-leaf"></i> Manajemen User</a></li>
@@ -60,10 +61,39 @@
 			          		<li><a href="<?php echo base_url(); ?>superadmin/sistem"><i class="icon-fire"></i> Sistem</a></li>
 				        </ul>
 			      	</div>
+	
+					<div class="btn-group pull-right">
+				        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			          		<i class="icon-th"></i> UPTD
+			          		<span class="caret"></span>
+				        </a>
+				        <ul class="dropdown-menu">
+			          		<li><a href="<?php echo base_url(); ?>superadmin/user_uptd"><i class="icon-user"></i> User UPTD</a></li>
+	 		 				<li class="divider"></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/artikel_uptd"><i class="icon-list"></i> Artikel UPTD</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/galeri_uptd"><i class="icon-picture"></i> Galeri UPTD</a></li>
+				        </ul>
+			      	</div>
+	
+					<div class="btn-group pull-right">
+				        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			          		<i class="icon-star"></i> Pengawas
+			          		<span class="caret"></span>
+				        </a>
+				        <ul class="dropdown-menu">
+			          		<li><a href="<?php echo base_url(); ?>superadmin/user_pengawas"><i class="icon-user"></i> User Pengawas</a></li>
+	 		 				<li class="divider"></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/pengawas_sekolah"><i class="icon-list"></i> Data Pegawai</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/artikel_pengawas"><i class="icon-play-circle"></i> Artikel Pengawas</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/agenda_pengawas"><i class="icon-print"></i> Agenda Pengawas</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/berita_pengawas"><i class="icon-share"></i> Berita Pengawas</a></li>
+			          		<li><a href="<?php echo base_url(); ?>superadmin/pengumuman_pengawas"><i class="icon-ok circle"></i> Pengumuman Pengawas</a></li>
+				        </ul>
+			      	</div>
 				
 					<div class="btn-group pull-right">
 							<a class="btn" href="<?php echo base_url(); ?>superadmin">
-								<i class="icon-home"></i> Dashboard
+								<i class="icon-home"></i> Home
 							</a>
 					</div>
 	          	</div>

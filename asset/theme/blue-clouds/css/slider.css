@@ -154,16 +154,19 @@ ul.lof-navigator li{
 	background-image:url(../images/transparent_bg.png);
 }
 .lof-main-item-desc p{
-	color:#FFF;
+	color:#000;
 	margin:0 8px;
 	padding:10px 0;
+	text-shadow:1px 1px #fff;
+	font-weight:bold;
 }
 .lof-main-item-desc h4 a{
-	color:#FFF;	
+	color:#000;	
 	margin:0;
 	font-size:16px;
 	padding:10px 8px 5px 6px;
 	text-decoration:none;
+	text-shadow:1px 1px #fff;
 }
 .lof-main-item-desc h4{
 	margin:0px;

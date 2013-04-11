@@ -16,6 +16,22 @@
 	</div>
 	
 	<div id="dashboard-icon-small">
+		<a href="<?php echo base_url(); ?>admin_dinas/artikel_sekolah">
+		<img src="<?php echo base_url(); ?>asset/theme/<?php echo $_SESSION['site_theme']; ?>/images/berita-icon.png" width="70" border="0"/>
+		</a>
+		<div class="cleaner_h0"></div>
+		ARTIKEL SEKOLAH
+	</div>
+	
+	<div id="dashboard-icon-small">
+		<a href="<?php echo base_url(); ?>admin_dinas/artikel_uptd">
+		<img src="<?php echo base_url(); ?>asset/theme/<?php echo $_SESSION['site_theme']; ?>/images/berita-icon.png" width="70" border="0"/>
+		</a>
+		<div class="cleaner_h0"></div>
+		ARTIKEL UPTD
+	</div>
+	
+	<div id="dashboard-icon-small">
 		<a href="<?php echo base_url(); ?>admin_dinas/agenda_dinas">
 		<img src="<?php echo base_url(); ?>asset/theme/<?php echo $_SESSION['site_theme']; ?>/images/agenda-icon.png"  width="70" border="0"/>
 		</a>

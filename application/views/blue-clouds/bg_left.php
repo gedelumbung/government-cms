@@ -9,9 +9,11 @@
 <input type="text" name="username" id="username" placeholder="Masukkan username...." />
 <label for="password">PASSWORD : </label>
 <input type="password" name="password" id="password" placeholder="Masukkan password...." />
-<label for="as">LOG IN SEBAGAI : </label>
+<label for="as">LOG IN AS : </label>
 <select name="log_as" id="as">
 	<option value="">-- Pilih --</option>
+	<option value="pengawas">Pengawas Sekolah</option>
+	<option value="uptd">UPTD</option>
 	<option value="admin_dinas">Admin Dinas</option>
 	<option value="operator">Operator</option>
 	<option value="superadmin">Superadmin</option>
@@ -62,6 +64,58 @@ if($this->session->userdata("logged_in")!="" && $this->session->userdata("tipe_u
 					
 					<a href="<?php echo base_url(); ?>admin_dinas/pengumuman"><div class="link-tombol" style="width:100px; text-align:center;">Pengumuman</div></a>
 					<a href="<?php echo base_url(); ?>admin_dinas/list_download"><div class="link-tombol" style="width:100px; text-align:center;">List Download</div></a>
+					
+					<a href="<?php echo base_url(); ?>admin_dinas/artikel_sekolah"><div class="link-tombol" style="width:100px; text-align:center;">Artikel Sekolah</div></a>
+					<a href="<?php echo base_url(); ?>admin_dinas/artikel_uptd"><div class="link-tombol" style="width:100px; text-align:center;">Artikel UPTD</div></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</td></tr>
+</table>
+<div class="cleaner_h10"></div>	
+</div>
+<?php } else
+if($this->session->userdata("logged_in")!="" && $this->session->userdata("tipe_user")=="pengawas") {
+?>
+
+<div id="bg-sidebar">
+<div id="head-sidebar">PENGAWAS SEKOLAH PANEL</div>
+<table width="100%" cellpadding="3">
+	<tr><td colspan="2"><div style="font-size:12px;">Welcome, <strong><?php echo $this->session->userdata('nama_user_login'); ?>.</strong></div></td></tr>
+	<tr><td><div class="border-photo-profil"><img src="<?php echo base_url(); ?>asset/theme/<?php echo $_SESSION['site_theme']; ?>/images/user-icon.png" /></div>	</td><td>
+	<table>
+		<tr>
+		<td><div id="btn-poll">
+<a href="<?php echo base_url(); ?>pengawas/dashboard"><div class="link-tombol" style="width:65px; text-align:center;">Dashboard</div></a>
+<a href="<?php echo base_url(); ?>pengawas/profil"><div class="link-tombol" style="width:65px; text-align:center;">Edit Profil</div></a>
+<a href="<?php echo base_url(); ?>pengawas/password" class="group3"><div class="link-tombol" style="width:65px; text-align:center;">Password</div></a>
+<a href="<?php echo base_url(); ?>auth/user_login/logout"><div class="link-tombol" style="width:65px; text-align:center;">Log Out</div></a>
+</div>
+	</td>
+	</tr>
+	</table>
+	</td></tr>
+	<tr><td colspan="2"><div style="font-size:12px;">Your privilages as, <strong><?php echo $this->session->userdata('tipe_user'); ?>.</strong></div></td></tr>
+	<tr><td colspan="2"><div style="font-size:12px;">Bidang : <strong><?php echo $this->session->userdata('unit_kerja'); ?>.</strong></div></td></tr>
+	<tr><td colspan="2">
+	
+	<table cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td colspan="2">
+			<div class="cleaner_h5"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="btn-poll">
+					<a href="<?php echo base_url(); ?>pengawas/berita"><div class="link-tombol" style="width:100px; text-align:center;">Berita</div></a>
+					<a href="<?php echo base_url(); ?>pengawas/agenda"><div class="link-tombol" style="width:100px; text-align:center;">Agenda</div></a>
+					
+					<a href="<?php echo base_url(); ?>pengawas/pengumuman"><div class="link-tombol" style="width:100px; text-align:center;">Pengumuman</div></a>
+					<a href="<?php echo base_url(); ?>pengawas/list_download"><div class="link-tombol" style="width:100px; text-align:center;">List Download</div></a>
+					
+					<a href="<?php echo base_url(); ?>pengawas/artikel"><div class="link-tombol" style="width:215px; text-align:center;">Artikel</div></a>
 				</div>
 			</td>
 		</tr>
@@ -108,6 +162,51 @@ if($this->session->userdata("logged_in")!="" && $this->session->userdata("tipe_u
 					
 					<a href="<?php echo base_url(); ?>operator/data_guru"><div class="link-tombol" style="width:100px; text-align:center;">Data Guru</div></a>
 					<a href="<?php echo base_url(); ?>operator/data_siswa"><div class="link-tombol" style="width:100px; text-align:center;">Peserta Didik</div></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</td></tr>
+</table>
+<div class="cleaner_h10"></div>	
+
+</div><?php } else if($this->session->userdata("logged_in")!="" && $this->session->userdata("tipe_user")=="uptd") { ?>
+<div id="bg-sidebar">
+<div id="head-sidebar">UPTD PANEL</div>
+<table width="100%" cellpadding="3">
+	<tr><td colspan="2"><div style="font-size:12px;">Welcome, <strong><?php echo $this->session->userdata('nama_user_login'); ?>.</strong></div></td></tr>
+	<tr><td><div class="border-photo-profil"><img src="<?php echo base_url(); ?>asset/theme/<?php echo $_SESSION['site_theme']; ?>/images/user-icon.png" /></div>	</td><td>
+	<table>
+		<tr>
+		<td><div id="btn-poll">
+<a href="<?php echo base_url(); ?>uptd/dashboard"><div class="link-tombol" style="width:65px; text-align:center;">Dashboard</div></a>
+<a href="<?php echo base_url(); ?>uptd/profil"><div class="link-tombol" style="width:65px; text-align:center;">Edit Profil</div></a>
+<a href="<?php echo base_url(); ?>uptd/password" class="group3"><div class="link-tombol" style="width:65px; text-align:center;">Password</div></a>
+<a href="<?php echo base_url(); ?>auth/user_login/logout"><div class="link-tombol" style="width:65px; text-align:center;">Log Out</div></a>
+</div>
+	</td>
+	</tr>
+	</table>
+	</td></tr>
+	<tr><td colspan="2"><div style="font-size:12px;">Your privilages as, <strong><?php echo $this->session->userdata('tipe_user'); ?>.</strong></div></td></tr>
+	<tr><td colspan="2"><div style="font-size:12px;"><strong>Kecamatan <?php echo $this->session->userdata('kecamatan'); ?>.</strong></div></td></tr>
+	<tr><td colspan="2">
+	
+	<table cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td colspan="2">
+			<div class="cleaner_h5"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="btn-poll">
+					<a href="<?php echo base_url(); ?>uptd/artikel_uptd"><div class="link-tombol" style="width:100px; text-align:center;">Artikel UPTD</div></a>
+					<a href="<?php echo base_url(); ?>uptd/galeri_uptd"><div class="link-tombol" style="width:100px; text-align:center;">Galeri UPTD</div></a>
+					
+					<a href="<?php echo base_url(); ?>uptd/data_guru"><div class="link-tombol" style="width:100px; text-align:center;">Data Guru</div></a>
+					<a href="<?php echo base_url(); ?>uptd/data_siswa"><div class="link-tombol" style="width:100px; text-align:center;">Peserta Didik</div></a>
+					<a href="<?php echo base_url(); ?>uptd/data_sekolah"><div class="link-tombol" style="width:215px; text-align:center;">Data Sekolah</div></a>
 				</div>
 			</td>
 		</tr>

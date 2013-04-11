@@ -297,7 +297,7 @@ class app_global_admin_dinas_model extends CI_Model {
 
 		$tot_hal = $this->db->query("select a.judul, a.id_multi_berita, a.gambar, a.tanggal, b.bidang, a.stts, a.headline from dlmbg_multi_berita a left join dlmbg_super_bidang b on a.id_bidang=b.id_super_bidang where a.id_bidang='".$this->session->userdata("id_bidang")."' ".$query_add."");
 
-		$config['base_url'] = base_url() . 'operator/artikel_sekolah/index/';
+		$config['base_url'] = base_url() . 'admin_dinas/berita_dinas/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;
@@ -338,6 +338,140 @@ class app_global_admin_dinas_model extends CI_Model {
 					<td>".$st."</td>
 					<td bgcolor='000'><a href='".base_url()."admin_dinas/berita_dinas/edit/".$h->id_multi_berita."'>Edit</a></td>
 					<td bgcolor='000'><a href='".base_url()."admin_dinas/berita_dinas/hapus/".$h->id_multi_berita."/".$h->gambar."' 
+					onClick=\"return confirm('Anda yakin?');\">Hapus</a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_artikel_sekolah($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "and a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.gambar, b.nama_sekolah, a.id_sekolah_artikel, a.stts from dlmbg_sekolah_artikel a left join dlmbg_sekolah_profil b 
+		on a.id_sekolah_profil=b.id_sekolah_profil where author='operator' ".$query_add."");
+
+		$config['base_url'] = base_url() . 'operator/artikel_sekolah/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.tanggal, a.gambar, a.id_sekolah_artikel, b.nama_sekolah, a.stts from dlmbg_sekolah_artikel a left join dlmbg_sekolah_profil b 
+		on a.id_sekolah_profil=b.id_sekolah_profil where author='operator' ".$query_add." order by a.judul ASC 
+		LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table width='100%' style='border-collapse:collapse;' cellpadding='8' cellspacing='0' border='1' width='100%'>
+					<tr bgcolor='#F2F2F2' align='center'>
+					<td>No.</td>
+					<td>Judul</td>
+					<td>Tanggal</td>
+					<td>Nama Sekolah</td>
+					<td colspan='3'>Action</td>
+					</tr>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="Approve";
+			$up="1";
+			$color="#EBF8A4";
+			if($h->stts==1){$st="Moderation"; $color="";$up="0";}
+			$hasil .= "<tr bgcolor='".$color."'>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->nama_sekolah."</td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_sekolah/approve/".$h->id_sekolah_artikel."/".$up."'>".$st."</a></td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_sekolah/edit/".$h->id_sekolah_artikel."'>Edit</a></td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_sekolah/hapus/".$h->id_sekolah_artikel."/".$h->gambar."' 
+					onClick=\"return confirm('Anda yakin?');\">Hapus</a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
+	public function generate_index_artikel_uptd($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$query_add = "";
+		if(!empty($filter))
+		{
+			if($filter['judul']=="")
+			{
+				$query_add = "";
+			}
+			else
+			{
+				$where['judul'] = $filter['judul']; 
+				$query_add = "where a.judul like '%".$where['judul']."%'";
+			}
+		}
+
+		$tot_hal = $this->db->query("select a.judul, a.tanggal, a.gambar, b.kecamatan, a.id_uptd_artikel, a.stts from dlmbg_uptd_artikel a left join dlmbg_super_kecamatan b 
+		on a.id_kecamatan=b.id_super_kecamatan ".$query_add."");
+
+		$config['base_url'] = base_url() . 'admin_dinas/artikel_uptd/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->query("select a.judul, a.tanggal, a.gambar, b.kecamatan, a.id_uptd_artikel, a.stts from dlmbg_uptd_artikel a left join dlmbg_super_kecamatan b 
+		on a.id_kecamatan=b.id_super_kecamatan ".$query_add." order by a.judul ASC 
+		LIMIT ".$offset.",".$limit."");
+		
+		$hasil .= "<table width='100%' style='border-collapse:collapse;' cellpadding='8' cellspacing='0' border='1' width='100%'>
+					<tr bgcolor='#F2F2F2' align='center'>
+					<td>No.</td>
+					<td>Judul</td>
+					<td>Tanggal</td>
+					<td>Kecamatan</td>
+					<td colspan='3'>Action</td>
+					</tr>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$st="Approve";
+			$up="1";
+			$color="#EBF8A4";
+			if($h->stts==1){$st="Moderation"; $color="";$up="0";}
+			$hasil .= "<tr bgcolor='".$color."'>
+					<td>".$i."</td>
+					<td>".$h->judul."</td>
+					<td>".generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal))." WIB</td>
+					<td>".$h->kecamatan."</td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_uptd/approve/".$h->id_uptd_artikel."/".$up."'>".$st."</a></td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_uptd/edit/".$h->id_uptd_artikel."'>Edit</a></td>
+					<td bgcolor='000'><a href='".base_url()."admin_dinas/artikel_uptd/hapus/".$h->id_uptd_artikel."/".$h->gambar."' 
 					onClick=\"return confirm('Anda yakin?');\">Hapus</a></td>
 					</tr>";
 			$i++;

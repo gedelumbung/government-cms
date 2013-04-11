@@ -14,9 +14,11 @@
 <input type="text" name="username" id="username" placeholder="Masukkan username...." />
 <label for="password">PASSWORD : </label>
 <input type="password" name="password" id="password" placeholder="Masukkan password...." />
-<label for="as">LOG IN SEBAGAI : </label>
+<label for="as">LOG IN AS : </label>
 <select name="log_as" id="as">
 	<option value="">-- Pilih --</option>
+	<option value="pengawas">Pengawas Sekolah</option>
+	<option value="uptd">UPTD</option>
 	<option value="admin_dinas">Admin Dinas</option>
 	<option value="operator">Operator</option>
 	<option value="superadmin">Superadmin</option>
