@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2013 at 04:22 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Waktu pembuatan: 12. April 2013 jam 22:52
+-- Versi Server: 5.5.16
+-- Versi PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `captcha`
+-- Struktur dari tabel `captcha`
 --
 
 CREATE TABLE IF NOT EXISTS `captcha` (
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `captcha` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=69 ;
 
 --
--- Dumping data for table `captcha`
+-- Dumping data untuk tabel `captcha`
 --
 
 INSERT INTO `captcha` (`captcha_id`, `captcha_time`, `word`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `captcha` (`captcha_id`, `captcha_time`, `word`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_admin_dinas`
+-- Struktur dari tabel `dlmbg_admin_dinas`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_admin_dinas` (
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_admin_dinas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `dlmbg_admin_dinas`
+-- Dumping data untuk tabel `dlmbg_admin_dinas`
 --
 
 INSERT INTO `dlmbg_admin_dinas` (`id_admin_dinas`, `nama_admin_dinas`, `username_admin_dinas`, `password`, `id_bidang`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `dlmbg_admin_dinas` (`id_admin_dinas`, `nama_admin_dinas`, `username
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_admin_sekolah`
+-- Struktur dari tabel `dlmbg_admin_sekolah`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_admin_sekolah` (
@@ -79,10 +79,10 @@ CREATE TABLE IF NOT EXISTS `dlmbg_admin_sekolah` (
   `password` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id_admin_sekolah`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `dlmbg_admin_sekolah`
+-- Dumping data untuk tabel `dlmbg_admin_sekolah`
 --
 
 INSERT INTO `dlmbg_admin_sekolah` (`id_admin_sekolah`, `id_sekolah`, `nama_operator`, `username`, `password`, `email`) VALUES
@@ -91,7 +91,7 @@ INSERT INTO `dlmbg_admin_sekolah` (`id_admin_sekolah`, `id_sekolah`, `nama_opera
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_admin_super`
+-- Struktur dari tabel `dlmbg_admin_super`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_admin_super` (
@@ -100,10 +100,10 @@ CREATE TABLE IF NOT EXISTS `dlmbg_admin_super` (
   `username_super_admin` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id_admin_super`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `dlmbg_admin_super`
+-- Dumping data untuk tabel `dlmbg_admin_super`
 --
 
 INSERT INTO `dlmbg_admin_super` (`id_admin_super`, `nama_super_admin`, `username_super_admin`, `password`) VALUES
@@ -112,7 +112,29 @@ INSERT INTO `dlmbg_admin_super` (`id_admin_super`, `nama_super_admin`, `username
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_counter`
+-- Struktur dari tabel `dlmbg_admin_uptd`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_admin_uptd` (
+  `id_admin_uptd` int(5) NOT NULL AUTO_INCREMENT,
+  `id_kecamatan` int(5) NOT NULL,
+  `nama_operator` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_admin_uptd`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_admin_uptd`
+--
+
+INSERT INTO `dlmbg_admin_uptd` (`id_admin_uptd`, `id_kecamatan`, `nama_operator`, `username`, `password`) VALUES
+(1, 1, 'Delumbung', 'delumbung', '8ffbb1d0a07e5acdcff984df4cce14f0');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_counter`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_counter` (
@@ -120,10 +142,10 @@ CREATE TABLE IF NOT EXISTS `dlmbg_counter` (
   `ip_address` varchar(20) NOT NULL,
   `tanggal` varchar(30) NOT NULL,
   PRIMARY KEY (`id_counter`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=290 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=299 ;
 
 --
--- Dumping data for table `dlmbg_counter`
+-- Dumping data untuk tabel `dlmbg_counter`
 --
 
 INSERT INTO `dlmbg_counter` (`id_counter`, `ip_address`, `tanggal`) VALUES
@@ -415,12 +437,21 @@ INSERT INTO `dlmbg_counter` (`id_counter`, `ip_address`, `tanggal`) VALUES
 (286, '174.129.228.67', '23-Feb-2013 10:36:26'),
 (287, '203.78.119.74', '23-Feb-2013 11:50:31'),
 (288, '::1', '27-Feb-2013 13:45:25'),
-(289, '::1', '04-Mar-2013 23:11:46');
+(289, '::1', '04-Mar-2013 23:11:46'),
+(290, '::1', '18-Mar-2013 05:16:34'),
+(291, '::1', '05-Apr-2013 21:29:06'),
+(292, '::1', '08-Apr-2013 06:30:07'),
+(293, '::1', '08-Apr-2013 18:45:07'),
+(294, '::1', '08-Apr-2013 21:41:52'),
+(295, '::1', '08-Apr-2013 21:42:05'),
+(296, '::1', '08-Apr-2013 21:42:59'),
+(297, '::1', '09-Apr-2013 16:03:31'),
+(298, '::1', '10-Apr-2013 09:51:41');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_dinas_download`
+-- Struktur dari tabel `dlmbg_dinas_download`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_dinas_download` (
@@ -434,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_dinas_download` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `dlmbg_dinas_download`
+-- Dumping data untuk tabel `dlmbg_dinas_download`
 --
 
 INSERT INTO `dlmbg_dinas_download` (`id_dinas_download`, `judul_file`, `nama_file`, `id_admin_dinas`, `id_bidang`, `stts`) VALUES
@@ -446,7 +477,7 @@ INSERT INTO `dlmbg_dinas_download` (`id_dinas_download`, `judul_file`, `nama_fil
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_menu`
+-- Struktur dari tabel `dlmbg_menu`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_menu` (
@@ -457,10 +488,10 @@ CREATE TABLE IF NOT EXISTS `dlmbg_menu` (
   `content` text NOT NULL,
   `posisi` varchar(10) NOT NULL,
   PRIMARY KEY (`id_menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
--- Dumping data for table `dlmbg_menu`
+-- Dumping data untuk tabel `dlmbg_menu`
 --
 
 INSERT INTO `dlmbg_menu` (`id_menu`, `id_parent`, `menu`, `url_route`, `content`, `posisi`) VALUES
@@ -468,7 +499,6 @@ INSERT INTO `dlmbg_menu` (`id_menu`, `id_parent`, `menu`, `url_route`, `content`
 (2, 0, 'Kepegawaian', '', '', 'atas'),
 (3, 0, 'Sekolah', '', '', 'atas'),
 (4, 0, 'Galeri', '/web/galeri', '', 'atas'),
-(5, 0, 'Forum', 'http://gedelumbung.com', '', 'atas'),
 (6, 1, 'Sambutan Kepala Dinas', '', 'Selamat datang di Website Dinas Perhubungan, Komunikasi dan Informatika Kota Pekanbaru, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Perhubungan, Komunikasi dan Informatika <p>Kota Pekanbaru dalam melaksanakan pelayanan perhubungan. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kota Pekanbaru didalam pengelolaan sektor transportasi dan telekomunikasi di wilayah Kotamadya Pekanbaru.</p>\r\n\r\n<p>Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa datang. Semoga Website ini memberikan manfaat bagi kita semua.</p>Selamat datang di Website Dinas Perhubungan, Komunikasi dan Informatika Kota Pekanbaru, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Perhubungan, Komunikasi dan Informatika <p>Kota Pekanbaru dalam melaksanakan pelayanan perhubungan. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kota Pekanbaru didalam pengelolaan sektor transportasi dan telekomunikasi di wilayah Kotamadya Pekanbaru.</p>\r\n\r\n<p>Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa datang. Semoga Website ini memberikan manfaat bagi kita semua.</p>', 'atas'),
 (7, 1, 'Visi dan Misi', '', 'Selamat datang di Website Dinas Perhubungan, Komunikasi dan Informatika Kota Pekanbaru, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Perhubungan, Komunikasi dan Informatika <p>Kota Pekanbaru dalam melaksanakan pelayanan perhubungan. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kota Pekanbaru didalam pengelolaan sektor transportasi dan telekomunikasi di wilayah Kotamadya Pekanbaru.</p>\r\n\r\n<p>Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa datang. Semoga Website ini memberikan manfaat bagi kita semua.</p>Selamat datang di Website Dinas Perhubungan, Komunikasi dan Informatika Kota Pekanbaru, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Perhubungan, Komunikasi dan Informatika <p>Kota Pekanbaru dalam melaksanakan pelayanan perhubungan. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kota Pekanbaru didalam pengelolaan sektor transportasi dan telekomunikasi di wilayah Kotamadya Pekanbaru.</p>\r\n\r\n<p>Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa datang. Semoga Website ini memberikan manfaat bagi kita semua.</p>', 'atas'),
 (8, 2, 'Struktur Kepegawaian', '', '<p>a.   Kepala Dinas;</p>\r\n<p>b.   Sekretariat :</p>\r\n<ol>\r\n<li>Sub Bagian Perencanaan;</li>\r\n<li>Sub Bagian  Umum dan Kepegawaian; dan</li>\r\n<li>Sub Bagian Keuangan</li>\r\n</ol>\r\n<p>c.   Bidang Pendidikan Dasar dan Agama :</p>\r\n<ol>\r\n<li>Seksi Sarana dan Prasarana Pendidikan Dasar dan Agama;</li>\r\n<li>Seksi  Kurikulum Pendidikan Dasar dan Agama; dan</li>\r\n<li>Seksi SPEM.</li>\r\n</ol>\r\n<p>d.   Bidang Pendidikan Menengah, Kejuruan dan Agama :</p>\r\n<ol>\r\n<li>Seksi Sarana dan Prasarana Pendidikan Menengah, Kejuruan dan Agama;</li>\r\n<li>Seksi  Kurikulum Pendidikan Menengah, Kejuruan dan Agama; dan</li>\r\n<li>Seksi SPEM.</li>\r\n</ol>\r\n<p>e.   Bidang Pemuda dan Olahraga :</p>\r\n<ol>\r\n<li>Seksi Pembinaan Pemuda;</li>\r\n<li>Seksi Pembinaan Olah Raga; dan</li>\r\n<li>Seksi Pembinaan PLS.</li>\r\n</ol>\r\n<p>f.    Bidang Ketenagaan Pendidikan  :</p>\r\n<ol>\r\n<li>Seksi Pendidikan dan Pelatihan;</li>\r\n<li>Seksi Ketenagaan TK/SD; dan</li>\r\n<li>Seksi Ketenagaan SMP/SMU/SMK.</li>\r\n</ol>', 'atas'),
@@ -481,12 +511,17 @@ INSERT INTO `dlmbg_menu` (`id_menu`, `id_parent`, `menu`, `url_route`, `content`
 (15, 0, 'Pengumuman', '/web/pengumuman', '', 'bawah'),
 (16, 0, 'Agenda Dinas', '/web/agenda', '', 'bawah'),
 (17, 0, 'List Download', '/web/download', '', 'bawah'),
-(18, 0, 'Buku Tamu', '/web/buku_tamu', '', 'bawah');
+(18, 0, 'Buku Tamu', '/web/buku_tamu', '', 'bawah'),
+(19, 0, 'UPTD', '', '', 'atas'),
+(20, 19, 'Artikel UPTD', 'web/artikel_uptd', '', 'atas'),
+(21, 19, 'Galeri UPTD', 'web/galeri_uptd', '', 'atas'),
+(22, 19, 'Data Pegawai', 'web/data_pegawai', '', 'atas'),
+(23, 2, 'Pengawas Sekolah', 'web/pengawas_sekolah', '', 'atas');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_multi_agenda`
+-- Struktur dari tabel `dlmbg_multi_agenda`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_multi_agenda` (
@@ -502,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_multi_agenda` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `dlmbg_multi_agenda`
+-- Dumping data untuk tabel `dlmbg_multi_agenda`
 --
 
 INSERT INTO `dlmbg_multi_agenda` (`id_multi_agenda`, `judul`, `isi`, `tanggal`, `id_user`, `id_bidang`, `tipe_user`, `stts`) VALUES
@@ -515,7 +550,7 @@ INSERT INTO `dlmbg_multi_agenda` (`id_multi_agenda`, `judul`, `isi`, `tanggal`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_multi_berita`
+-- Struktur dari tabel `dlmbg_multi_berita`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_multi_berita` (
@@ -533,15 +568,15 @@ CREATE TABLE IF NOT EXISTS `dlmbg_multi_berita` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `dlmbg_multi_berita`
+-- Dumping data untuk tabel `dlmbg_multi_berita`
 --
 
 INSERT INTO `dlmbg_multi_berita` (`id_multi_berita`, `judul`, `isi`, `gambar`, `tanggal`, `id_user`, `id_bidang`, `tipe_user`, `stts`, `headline`) VALUES
 (1, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 0, 0, 'dinas', '1', 'n'),
 (2, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', '82f92e7a10d782371645355babec3333.jpg', 1349032111, 0, 0, 'dinas', '1', 'n'),
-(3, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 1, 'dinas', '0', 'n'),
-(4, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 0, 'dinas', '0', 'n'),
-(5, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 0, 'dinas', '0', 'n'),
+(3, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 1, 'dinas', '1', 'n'),
+(4, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 0, 'dinas', '1', 'n'),
+(5, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'slider-banner-1.jpg', 1349032111, 1, 0, 'dinas', '1', 'n'),
 (6, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'd73b8397781c4f5b12bbeecc3965bb88.JPG', 1349032111, 1, 1, 'dinas', '1', 'y'),
 (7, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', 'c00c4eecc784005d309cef0d82d7b4de.JPG', 1349032111, 1, 1, 'dinas', '1', 'y'),
 (8, 'Bappeda dan STIKOM selenggarakan WORKSHOP Internet Marketing', 'Banyuwangi - Dalam rangka peningkatan kualitas penyusunan rencana pembangunan Desa/Kelurahan Tahun 2014 serta peningkatan kualitas Musrenbang (Musyawarah Perencanaan Pembangunan) yang akan dilaksanakan selama bulan Januari 2013, Bappeda bekerjasama dengan STIKOM (Sekolah Tinggi Ilmu Komputer) ... ', '6b0220ae74328dd733588a96d9bfb5be.JPG', 1349032111, 1, 1, 'dinas', '1', 'y'),
@@ -550,7 +585,7 @@ INSERT INTO `dlmbg_multi_berita` (`id_multi_berita`, `judul`, `isi`, `gambar`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_multi_pengumuman`
+-- Struktur dari tabel `dlmbg_multi_pengumuman`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_multi_pengumuman` (
@@ -566,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_multi_pengumuman` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `dlmbg_multi_pengumuman`
+-- Dumping data untuk tabel `dlmbg_multi_pengumuman`
 --
 
 INSERT INTO `dlmbg_multi_pengumuman` (`id_multi_pengumuman`, `judul`, `isi`, `tanggal`, `id_user`, `id_bidang`, `tipe_user`, `stts`) VALUES
@@ -584,7 +619,108 @@ INSERT INTO `dlmbg_multi_pengumuman` (`id_multi_pengumuman`, `judul`, `isi`, `ta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_sekolah_artikel`
+-- Struktur dari tabel `dlmbg_pengawas_agenda`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_pengawas_agenda` (
+  `id_pengawas_agenda` int(5) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(150) NOT NULL,
+  `isi` text NOT NULL,
+  `tanggal` int(30) NOT NULL,
+  `id_user_pengawas` int(5) NOT NULL,
+  `id_unit_kerja` int(5) NOT NULL,
+  `stts` char(1) NOT NULL,
+  PRIMARY KEY (`id_pengawas_agenda`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_pengawas_agenda`
+--
+
+INSERT INTO `dlmbg_pengawas_agenda` (`id_pengawas_agenda`, `judul`, `isi`, `tanggal`, `id_user_pengawas`, `id_unit_kerja`, `stts`) VALUES
+(2, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'ddd', 1349035514, 1, 1, '1'),
+(3, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'ddd', 1349035514, 1, 1, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_pengawas_artikel`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_pengawas_artikel` (
+  `id_pengawas_artikel` int(5) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(150) NOT NULL,
+  `isi` text NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `tanggal` int(20) NOT NULL,
+  `id_user_pengawas` int(5) NOT NULL,
+  `id_super_unit_kerja` int(5) NOT NULL,
+  `stts` int(1) NOT NULL,
+  PRIMARY KEY (`id_pengawas_artikel`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_pengawas_artikel`
+--
+
+INSERT INTO `dlmbg_pengawas_artikel` (`id_pengawas_artikel`, `judul`, `isi`, `gambar`, `tanggal`, `id_user_pengawas`, `id_super_unit_kerja`, `stts`) VALUES
+(2, 'AMD Umuman APU E-Series Terbaru', 'AseloleeeeeeÂ AseloleeeeeeÂ Aseloleeeeee', 'slider-banner-1.jpg', 1349035514, 1, 1, 1),
+(3, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'ddd', 'slider-banner-1.jpg', 1349035514, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_pengawas_berita`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_pengawas_berita` (
+  `id_pengawas_berita` int(5) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(150) NOT NULL,
+  `isi` text NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `tanggal` int(30) NOT NULL,
+  `id_user_pengawas` int(5) NOT NULL,
+  `id_unit_kerja` int(5) NOT NULL,
+  `stts` char(1) NOT NULL,
+  PRIMARY KEY (`id_pengawas_berita`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_pengawas_berita`
+--
+
+INSERT INTO `dlmbg_pengawas_berita` (`id_pengawas_berita`, `judul`, `isi`, `gambar`, `tanggal`, `id_user_pengawas`, `id_unit_kerja`, `stts`) VALUES
+(1, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'tttt', 'slider-banner-1.jpg', 1349035514, 1, 1, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_pengawas_pengumuman`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_pengawas_pengumuman` (
+  `id_pengawas_pengumuman` int(5) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(150) NOT NULL,
+  `isi` text NOT NULL,
+  `tanggal` int(30) NOT NULL,
+  `id_user_pengawas` int(5) NOT NULL,
+  `id_unit_kerja` int(5) NOT NULL,
+  `stts` char(1) NOT NULL,
+  PRIMARY KEY (`id_pengawas_pengumuman`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_pengawas_pengumuman`
+--
+
+INSERT INTO `dlmbg_pengawas_pengumuman` (`id_pengawas_pengumuman`, `judul`, `isi`, `tanggal`, `id_user_pengawas`, `id_unit_kerja`, `stts`) VALUES
+(2, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'rrrr', 1349035111, 1, 1, '1'),
+(3, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'rrrr', 1349035111, 1, 1, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_sekolah_artikel`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_artikel` (
@@ -596,23 +732,22 @@ CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_artikel` (
   `id_admin_sekolah` int(5) NOT NULL,
   `id_sekolah_profil` int(5) NOT NULL,
   `stts` int(1) NOT NULL,
+  `author` varchar(20) NOT NULL,
   PRIMARY KEY (`id_sekolah_artikel`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `dlmbg_sekolah_artikel`
+-- Dumping data untuk tabel `dlmbg_sekolah_artikel`
 --
 
-INSERT INTO `dlmbg_sekolah_artikel` (`id_sekolah_artikel`, `judul`, `isi`, `gambar`, `tanggal`, `id_admin_sekolah`, `id_sekolah_profil`, `stts`) VALUES
-(1, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1),
-(2, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1),
-(3, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1),
-(5, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Juta', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1);
+INSERT INTO `dlmbg_sekolah_artikel` (`id_sekolah_artikel`, `judul`, `isi`, `gambar`, `tanggal`, `id_admin_sekolah`, `id_sekolah_profil`, `stts`, `author`) VALUES
+(3, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Jutaa', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1, 'operator'),
+(5, 'Hadir di Indonesia, Xbox 360 Slim Dibanderol Rp 3,4 Jutaaaaa', 'Akhirnya kita masuk ke bulan kedua di tahun 2013, yang katanya sih merupakan bulan yang istimewa dan penuh cinta. Yaw mungkin itu tidak berlaku buat yang lagi menyandang pangkat jomblo ;). Gak apalah kalau sekarang jomblo, yang penting besok nikahnya tepat waktu :p. Kegiatan saya bulan ini lumayan padat, masih berkutat dengan yang namanya skripsi. Tapi bukan skripsi punya saya, tapi punya teman. Siapa??? Yaw ada deh, saya orangnya gak senang mengumbar privasi orang. Karena saya tau bagaimana rasanya jika privasi kita diumbar di depan orang banyak, rasanya seret-seret gimana gitu, sambil bawaannya pengen jambak-jambak itu orang (#haha). Cukup saya saja dan teman saya saja yang tau. Selain itu, di bulan ini saya juga jadi lebih banyak mengetahui watak-watak orang di sekitar saya. Mulai dari yang wataknya kayak sengkuni, yang senang mengadu domba orang. Ada yang di depan saya baik tapi di belakang malah menikam. Dan ada juga yang memang berjiwa ksatria, mengibarkan bendera perang, tanpa ada basa-basi layaknya orang-orang munafik yang kerap saya temui. Hehe, kok jadi curhat yakkk... Gak apalah, yaw kan namanya juga blog pribadi.', 'slider-banner-1.jpg', 1349032111, 1, 4, 1, 'operator');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_sekolah_galeri_sekolah`
+-- Struktur dari tabel `dlmbg_sekolah_galeri_sekolah`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_galeri_sekolah` (
@@ -626,16 +761,16 @@ CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_galeri_sekolah` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
--- Dumping data for table `dlmbg_sekolah_galeri_sekolah`
+-- Dumping data untuk tabel `dlmbg_sekolah_galeri_sekolah`
 --
 
 INSERT INTO `dlmbg_sekolah_galeri_sekolah` (`id_sekolah_galeri_sekolah`, `gambar`, `judul`, `id_admin_sekolah`, `id_sekolah`, `stts`) VALUES
-(14, 'a6e237b393a5e8142684aafe2f85cad3.png', 'Mulyadi, si Anak Jenius dari Hongkong', 1, 4, 0);
+(14, 'a6e237b393a5e8142684aafe2f85cad3.png', 'Mulyadi, si Anak Jenius dari Hongkong', 1, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_sekolah_guru`
+-- Struktur dari tabel `dlmbg_sekolah_guru`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_guru` (
@@ -655,7 +790,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_guru` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
 
 --
--- Dumping data for table `dlmbg_sekolah_guru`
+-- Dumping data untuk tabel `dlmbg_sekolah_guru`
 --
 
 INSERT INTO `dlmbg_sekolah_guru` (`id_sekolah_guru`, `nama`, `jk`, `status_pns`, `golongan`, `tugas`, `id_sekolah`, `id_jenjang_pendidikan`, `id_kecamatan`, `tempat_lahir`, `tanggal_lahir`, `tanggal_bertugas`) VALUES
@@ -721,7 +856,7 @@ INSERT INTO `dlmbg_sekolah_guru` (`id_sekolah_guru`, `nama`, `jk`, `status_pns`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_sekolah_profil`
+-- Struktur dari tabel `dlmbg_sekolah_profil`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_profil` (
@@ -738,7 +873,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_profil` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `dlmbg_sekolah_profil`
+-- Dumping data untuk tabel `dlmbg_sekolah_profil`
 --
 
 INSERT INTO `dlmbg_sekolah_profil` (`id_sekolah_profil`, `npsn`, `nama_sekolah`, `status_sekolah`, `id_jenjang_pendidikan`, `visi_misi`, `alamat`, `id_kecamatan`, `email`) VALUES
@@ -758,7 +893,7 @@ INSERT INTO `dlmbg_sekolah_profil` (`id_sekolah_profil`, `npsn`, `nama_sekolah`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_sekolah_siswa`
+-- Struktur dari tabel `dlmbg_sekolah_siswa`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_siswa` (
@@ -773,7 +908,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_sekolah_siswa` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `dlmbg_sekolah_siswa`
+-- Dumping data untuk tabel `dlmbg_sekolah_siswa`
 --
 
 INSERT INTO `dlmbg_sekolah_siswa` (`id_sekolah_siswa`, `nama`, `nisn`, `kelas`, `id_sekolah`, `id_jenjang_pendidikan`, `id_kecamatan`) VALUES
@@ -787,7 +922,7 @@ INSERT INTO `dlmbg_sekolah_siswa` (`id_sekolah_siswa`, `nama`, `nisn`, `kelas`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_setting`
+-- Struktur dari tabel `dlmbg_setting`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_setting` (
@@ -799,7 +934,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_setting` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
--- Dumping data for table `dlmbg_setting`
+-- Dumping data untuk tabel `dlmbg_setting`
 --
 
 INSERT INTO `dlmbg_setting` (`id_setting`, `tipe`, `title`, `content_setting`) VALUES
@@ -821,7 +956,7 @@ INSERT INTO `dlmbg_setting` (`id_setting`, `tipe`, `title`, `content_setting`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_album_galeri_dinas`
+-- Struktur dari tabel `dlmbg_super_album_galeri_dinas`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_album_galeri_dinas` (
@@ -831,7 +966,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_album_galeri_dinas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `dlmbg_super_album_galeri_dinas`
+-- Dumping data untuk tabel `dlmbg_super_album_galeri_dinas`
 --
 
 INSERT INTO `dlmbg_super_album_galeri_dinas` (`id_abum_galeri_dinas`, `nama_album`) VALUES
@@ -843,7 +978,7 @@ INSERT INTO `dlmbg_super_album_galeri_dinas` (`id_abum_galeri_dinas`, `nama_albu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_bidang`
+-- Struktur dari tabel `dlmbg_super_bidang`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_bidang` (
@@ -853,7 +988,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_bidang` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `dlmbg_super_bidang`
+-- Dumping data untuk tabel `dlmbg_super_bidang`
 --
 
 INSERT INTO `dlmbg_super_bidang` (`id_super_bidang`, `bidang`) VALUES
@@ -865,7 +1000,7 @@ INSERT INTO `dlmbg_super_bidang` (`id_super_bidang`, `bidang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_buku_tamu`
+-- Struktur dari tabel `dlmbg_super_buku_tamu`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_buku_tamu` (
@@ -879,7 +1014,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_buku_tamu` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `dlmbg_super_buku_tamu`
+-- Dumping data untuk tabel `dlmbg_super_buku_tamu`
 --
 
 INSERT INTO `dlmbg_super_buku_tamu` (`id_super_buku_tamu`, `nama`, `kontak`, `pesan`, `tanggal`, `stts`) VALUES
@@ -893,7 +1028,7 @@ INSERT INTO `dlmbg_super_buku_tamu` (`id_super_buku_tamu`, `nama`, `kontak`, `pe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_galeri_dinas`
+-- Struktur dari tabel `dlmbg_super_galeri_dinas`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_galeri_dinas` (
@@ -906,7 +1041,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_galeri_dinas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `dlmbg_super_galeri_dinas`
+-- Dumping data untuk tabel `dlmbg_super_galeri_dinas`
 --
 
 INSERT INTO `dlmbg_super_galeri_dinas` (`id_super_galeri_dinas`, `id_user`, `id_album`, `gambar`, `judul`) VALUES
@@ -922,7 +1057,7 @@ INSERT INTO `dlmbg_super_galeri_dinas` (`id_super_galeri_dinas`, `id_user`, `id_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_jawaban_poll`
+-- Struktur dari tabel `dlmbg_super_jawaban_poll`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_jawaban_poll` (
@@ -934,7 +1069,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_jawaban_poll` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `dlmbg_super_jawaban_poll`
+-- Dumping data untuk tabel `dlmbg_super_jawaban_poll`
 --
 
 INSERT INTO `dlmbg_super_jawaban_poll` (`id_super_jawaban_poll`, `id_pertanyaan`, `jawaban`, `jum`) VALUES
@@ -947,7 +1082,7 @@ INSERT INTO `dlmbg_super_jawaban_poll` (`id_super_jawaban_poll`, `id_pertanyaan`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_jenjang_pendidikan`
+-- Struktur dari tabel `dlmbg_super_jenjang_pendidikan`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_jenjang_pendidikan` (
@@ -957,7 +1092,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_jenjang_pendidikan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `dlmbg_super_jenjang_pendidikan`
+-- Dumping data untuk tabel `dlmbg_super_jenjang_pendidikan`
 --
 
 INSERT INTO `dlmbg_super_jenjang_pendidikan` (`id_super_jenjang_pendidikan`, `pendidikan`) VALUES
@@ -968,7 +1103,7 @@ INSERT INTO `dlmbg_super_jenjang_pendidikan` (`id_super_jenjang_pendidikan`, `pe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_kecamatan`
+-- Struktur dari tabel `dlmbg_super_kecamatan`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_kecamatan` (
@@ -978,7 +1113,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_kecamatan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `dlmbg_super_kecamatan`
+-- Dumping data untuk tabel `dlmbg_super_kecamatan`
 --
 
 INSERT INTO `dlmbg_super_kecamatan` (`id_super_kecamatan`, `kecamatan`) VALUES
@@ -988,7 +1123,7 @@ INSERT INTO `dlmbg_super_kecamatan` (`id_super_kecamatan`, `kecamatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_kepegawaian`
+-- Struktur dari tabel `dlmbg_super_kepegawaian`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_kepegawaian` (
@@ -1002,7 +1137,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_kepegawaian` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `dlmbg_super_kepegawaian`
+-- Dumping data untuk tabel `dlmbg_super_kepegawaian`
 --
 
 INSERT INTO `dlmbg_super_kepegawaian` (`id_super_kepegawaian`, `nama`, `nip`, `jabatan`, `id_bidang`, `kontak`) VALUES
@@ -1017,7 +1152,7 @@ INSERT INTO `dlmbg_super_kepegawaian` (`id_super_kepegawaian`, `nama`, `nip`, `j
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_link_terkait`
+-- Struktur dari tabel `dlmbg_super_link_terkait`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_link_terkait` (
@@ -1028,7 +1163,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_link_terkait` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `dlmbg_super_link_terkait`
+-- Dumping data untuk tabel `dlmbg_super_link_terkait`
 --
 
 INSERT INTO `dlmbg_super_link_terkait` (`id_super_link_terkait`, `nama_link`, `url`) VALUES
@@ -1038,7 +1173,23 @@ INSERT INTO `dlmbg_super_link_terkait` (`id_super_link_terkait`, `nama_link`, `u
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_pertanyaan_poll`
+-- Struktur dari tabel `dlmbg_super_pengawas_sekolah`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_super_pengawas_sekolah` (
+  `id_super_pengawas_sekolah` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(150) NOT NULL,
+  `nip` varchar(50) NOT NULL,
+  `jabatan` varchar(50) NOT NULL,
+  `id_unit_kerja` int(5) NOT NULL,
+  `kontak` text NOT NULL,
+  PRIMARY KEY (`id_super_pengawas_sekolah`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_super_pertanyaan_poll`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_pertanyaan_poll` (
@@ -1049,7 +1200,7 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_pertanyaan_poll` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `dlmbg_super_pertanyaan_poll`
+-- Dumping data untuk tabel `dlmbg_super_pertanyaan_poll`
 --
 
 INSERT INTO `dlmbg_super_pertanyaan_poll` (`id_super_pertanyaan_poll`, `pertanyaan`, `aktif`) VALUES
@@ -1058,7 +1209,7 @@ INSERT INTO `dlmbg_super_pertanyaan_poll` (`id_super_pertanyaan_poll`, `pertanya
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dlmbg_super_statis`
+-- Struktur dari tabel `dlmbg_super_statis`
 --
 
 CREATE TABLE IF NOT EXISTS `dlmbg_super_statis` (
@@ -1068,6 +1219,124 @@ CREATE TABLE IF NOT EXISTS `dlmbg_super_statis` (
   `jenis` varchar(20) NOT NULL,
   PRIMARY KEY (`id_super_statis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_super_unit_kerja`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_super_unit_kerja` (
+  `id_super_unit_kerja` int(5) NOT NULL AUTO_INCREMENT,
+  `unit_kerja` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_super_unit_kerja`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_super_unit_kerja`
+--
+
+INSERT INTO `dlmbg_super_unit_kerja` (`id_super_unit_kerja`, `unit_kerja`) VALUES
+(1, 'Kebudayaan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_uptd_artikel`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_uptd_artikel` (
+  `id_uptd_artikel` int(5) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(150) NOT NULL,
+  `isi` text NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `tanggal` int(20) NOT NULL,
+  `id_admin_uptd` int(5) NOT NULL,
+  `id_kecamatan` int(5) NOT NULL,
+  `stts` int(1) NOT NULL,
+  PRIMARY KEY (`id_uptd_artikel`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_uptd_artikel`
+--
+
+INSERT INTO `dlmbg_uptd_artikel` (`id_uptd_artikel`, `judul`, `isi`, `gambar`, `tanggal`, `id_admin_uptd`, `id_kecamatan`, `stts`) VALUES
+(2, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'Aseloleeeeee Aseloleeeeee Aseloleeeeee', '8031ed6e2c5dc2a82e89324c60f50c93.jpg', 1349035514, 1, 2, 1),
+(3, 'AMD Umuman APU E-Series Terbaru AMD Umuman APU E-Series Terbaru', 'Aselole', 'slider-banner-1.jpg', 1349035514, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_uptd_galeri_uptd`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_uptd_galeri_uptd` (
+  `id_uptd_galeri_uptd` int(5) NOT NULL AUTO_INCREMENT,
+  `gambar` varchar(100) NOT NULL,
+  `judul` varchar(150) NOT NULL,
+  `id_admin_uptd` int(5) NOT NULL,
+  `id_kecamatan` int(5) NOT NULL,
+  `stts` int(1) NOT NULL,
+  PRIMARY KEY (`id_uptd_galeri_uptd`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_uptd_galeri_uptd`
+--
+
+INSERT INTO `dlmbg_uptd_galeri_uptd` (`id_uptd_galeri_uptd`, `gambar`, `judul`, `id_admin_uptd`, `id_kecamatan`, `stts`) VALUES
+(3, 'c965a53c87956bf2a687380743bf7a08.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', 1, 1, 1),
+(4, 'd869771e573b593252762186838f6652.png', 'Testing Aplikasi', 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_uptd_pegawai`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_uptd_pegawai` (
+  `id_uptd_pegawai` int(10) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(150) NOT NULL,
+  `jk` char(1) NOT NULL,
+  `status_pns` varchar(30) NOT NULL,
+  `golongan` varchar(10) NOT NULL,
+  `tugas` varchar(40) NOT NULL,
+  `id_kecamatan` int(10) NOT NULL,
+  `tempat_lahir` varchar(50) NOT NULL,
+  `tanggal_lahir` varchar(30) NOT NULL,
+  `tanggal_bertugas` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_uptd_pegawai`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_uptd_pegawai`
+--
+
+INSERT INTO `dlmbg_uptd_pegawai` (`id_uptd_pegawai`, `nama`, `jk`, `status_pns`, `golongan`, `tugas`, `id_kecamatan`, `tempat_lahir`, `tanggal_lahir`, `tanggal_bertugas`) VALUES
+(2, 'Adi Januardi', 'L', 'Aktif', 'IIIA', 'Kepala Dinas', 1, 'Denpasar', '04/01/1985', '04/30/2006');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dlmbg_user_pengawas`
+--
+
+CREATE TABLE IF NOT EXISTS `dlmbg_user_pengawas` (
+  `id_user_pengawas` int(5) NOT NULL AUTO_INCREMENT,
+  `nama_user_pengawas` varchar(100) NOT NULL,
+  `username_user_pengawas` varchar(100) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `id_unit_kerja` int(5) NOT NULL,
+  PRIMARY KEY (`id_user_pengawas`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `dlmbg_user_pengawas`
+--
+
+INSERT INTO `dlmbg_user_pengawas` (`id_user_pengawas`, `nama_user_pengawas`, `username_user_pengawas`, `password`, `id_unit_kerja`) VALUES
+(1, 'Ulir Rifky', 'ulir', '8ffbb1d0a07e5acdcff984df4cce14f0', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

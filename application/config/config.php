@@ -14,8 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/dinas-pendidikan/';
-//$config['base_url']	= 'http://disdiksmi.info/';
+$config['base_url']	= 'http://dinas.gedelumbung.com';
 
 /*
 |--------------------------------------------------------------------------
