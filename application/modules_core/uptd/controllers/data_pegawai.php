@@ -61,6 +61,8 @@ class data_pegawai extends MX_Controller {
 			$d['tempat_lahir'] = "";
 			$d['tanggal_lahir'] = "";
 			$d['tanggal_bertugas'] = "";
+			$d['nip'] = "";
+			$d['kontak'] = "";
 			
 			$d['id_param'] = "";
 			$d['tipe'] = "tambah";
@@ -105,6 +107,8 @@ class data_pegawai extends MX_Controller {
 			$d['tempat_lahir'] = $get->tempat_lahir;
 			$d['tanggal_lahir'] = $get->tanggal_lahir;
 			$d['tanggal_bertugas'] = $get->tanggal_bertugas;
+			$d['nip'] = $get->nip;
+			$d['kontak'] = $get->kontak;
 			
 			$d['id_param'] = $get->id_uptd_pegawai;
 			$d['tipe'] = "edit";
@@ -138,6 +142,8 @@ class data_pegawai extends MX_Controller {
 				$in['tempat_lahir'] = $this->input->post("tempat_lahir");
 				$in['tanggal_lahir'] = $this->input->post("tanggal_lahir");
 				$in['tanggal_bertugas'] = $this->input->post("tanggal_bertugas");
+				$in['nip'] = $this->input->post("nip");
+				$in['kontak'] = $this->input->post("kontak");
 				
 				$this->db->insert("dlmbg_uptd_pegawai",$in);
 			}
@@ -152,6 +158,8 @@ class data_pegawai extends MX_Controller {
 				$in['tempat_lahir'] = $this->input->post("tempat_lahir");
 				$in['tanggal_lahir'] = $this->input->post("tanggal_lahir");
 				$in['tanggal_bertugas'] = $this->input->post("tanggal_bertugas");
+				$in['nip'] = $this->input->post("nip");
+				$in['kontak'] = $this->input->post("kontak");
 				
 				$this->db->update("dlmbg_uptd_pegawai",$in,$id);
 			}

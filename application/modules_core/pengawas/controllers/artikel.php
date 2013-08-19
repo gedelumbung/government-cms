@@ -88,14 +88,14 @@ class artikel extends MX_Controller {
 			$d['dt_berita_slide_content'] = $this->app_global_model->generate_menu_slider_content($_SESSION['site_limit_berita_slider'],0);
 			$d['dt_berita_slide_navigator'] = $this->app_global_model->generate_menu_slider_navigator($_SESSION['site_limit_berita_slider'],0);
 			
-			$where['id_uptd_artikel'] = $id_param;
-			$get = $this->db->get_where("dlmbg_uptd_artikel",$where)->row();
+			$where['id_pengawas_artikel'] = $id_param;
+			$get = $this->db->get_where("dlmbg_pengawas_artikel",$where)->row();
 			
 			$d['judul'] = $get->judul;
 			$d['isi'] = $get->isi;
 			$d['gambar'] = $get->gambar;
 			
-			$d['id_param'] = $get->id_uptd_artikel;
+			$d['id_param'] = $get->id_pengawas_artikel;
 			$d['tipe'] = "edit";
 			
 			$this->load->view($_SESSION['site_theme'].'/bg_header',$d);

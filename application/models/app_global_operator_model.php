@@ -45,7 +45,7 @@ class app_global_operator_model extends CI_Model {
 			}
 		}
 
-		$tot_hal = $this->db->query("select a.nama, a.id_sekolah_guru, a.jk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, c.pendidikan, 
+		$tot_hal = $this->db->query("select a.nama, a.id_sekolah_guru, a.nip, a.nuptk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, c.pendidikan, 
 		a.tempat_lahir, a.tanggal_lahir, a.tanggal_bertugas from dlmbg_sekolah_guru a left join dlmbg_sekolah_profil b on 
 		a.id_sekolah=b.id_sekolah_profil left join dlmbg_super_jenjang_pendidikan c on a.id_jenjang_pendidikan=c.id_super_jenjang_pendidikan 
 		where a.id_sekolah='".$this->session->userdata("id_sekolah")."' ".$query_add."");
@@ -59,7 +59,7 @@ class app_global_operator_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->query("select a.nama, a.id_sekolah_guru, a.jk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, c.pendidikan, a.tempat_lahir,
+		$w = $this->db->query("select a.nama, a.id_sekolah_guru, a.nip, a.nuptk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, c.pendidikan, a.tempat_lahir,
 		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_sekolah_guru a left join dlmbg_sekolah_profil b on a.id_sekolah=b.id_sekolah_profil
 		left join dlmbg_super_jenjang_pendidikan c on a.id_jenjang_pendidikan=c.id_super_jenjang_pendidikan 
 		where a.id_sekolah='".$this->session->userdata("id_sekolah")."' ".$query_add." order by a.nama ASC LIMIT ".$offset.",".$limit."");
@@ -68,12 +68,12 @@ class app_global_operator_model extends CI_Model {
 					<tr bgcolor='#F2F2F2' align='center'>
 					<td>No.</td>
 					<td>Nama</td>
-					<td>Jenis Kelamin</td>
-					<td>Status PNS</td>
+					<td>NIP</td>
+					<td>Status Kepegawaian</td>
 					<td>Golongan</td>
 					<td>Tugas Sebagai</td>
 					<td>Tempat Tugas</td>
-					<td>Tempat Lahir</td>
+					<td>NUPTK</td>
 					<td>Usia</td>
 					<td>MK</td>
 					<td bgcolor='#000' colspan='2'><a href='".base_url()."operator/data_guru/tambah'>Tambah</a></td>
@@ -84,12 +84,12 @@ class app_global_operator_model extends CI_Model {
 			$hasil .= "<tr>
 					<td>".$i."</td>
 					<td>".$h->nama."</td>
-					<td>".$h->jk."</td>
+					<td>".$h->nip."</td>
 					<td>".$h->status_pns."</td>
 					<td>".$h->golongan."</td>
 					<td>".$h->tugas."</td>
 					<td>".$h->nama_sekolah."</td>
-					<td>".$h->tempat_lahir."</td>
+					<td>".$h->nuptk."</td>
 					<td>".selisih_tanggah($h->tanggal_lahir,date("m/d/Y"))."</td>
 					<td>".selisih_tanggah($h->tanggal_bertugas,date("m/d/Y"))."</td>
 					<td bgcolor='000'><a href='".base_url()."operator/data_guru/edit/".$h->id_sekolah_guru."'>Edit</a></td>

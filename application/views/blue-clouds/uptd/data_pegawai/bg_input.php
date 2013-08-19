@@ -5,9 +5,19 @@
 	<div class="cleaner_h20"></div>
 	<?php echo form_open("uptd/data_pegawai/simpan"); ?>
 	
+	<label for="nip">NIP</label>
+	<div class="cleaner_h5"></div>
+	<input type="text" id="nip" name="nip" placeholder="NIP" value="<?php echo $nip; ?>" />
+	<div class="cleaner_h20"></div>
+	
 	<label for="nama">Nama</label>
 	<div class="cleaner_h5"></div>
 	<input type="text" id="nama" name="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+	<div class="cleaner_h20"></div>
+	
+	<label for="kontak">No Telp</label>
+	<div class="cleaner_h5"></div>
+	<input type="text" id="kontak" name="kontak" placeholder="No Telpon" value="<?php echo $kontak; ?>" />
 	<div class="cleaner_h20"></div>
 	
 	<?php $l='checked="checked"'; $p='checked="checked"';
@@ -20,9 +30,9 @@
 	<input type="radio" name="jk" value="P" id="P" <?php echo $p; ?> /><label for="P">Perempuan</label>
 	<div class="cleaner_h20"></div>
 	
-	<label for="status_pns">Status PNS</label>
+	<label for="status_pns">Status Kepegawaian</label>
 	<div class="cleaner_h5"></div>
-	<input type="text" id="status_pns" name="status_pns" placeholder="Status PNS" value="<?php echo $status_pns; ?>" />
+	<input type="text" id="status_pns" name="status_pns" placeholder="Status Kepegawaian" value="<?php echo $status_pns; ?>" />
 	<div class="cleaner_h20"></div>
 	
 	<label for="golongan">Golongan</label>

@@ -391,6 +391,10 @@ class app_global_pengawas_model extends CI_Model {
 			$st="Approve";
 			$up="1";
 			$color="#EBF8A4";
+			if($h->stts==1)
+			{
+				$color = "#fff";
+			}
 			$hasil .= "<tr bgcolor='".$color."'>
 					<td>".$i."</td>
 					<td>".$h->judul."</td>

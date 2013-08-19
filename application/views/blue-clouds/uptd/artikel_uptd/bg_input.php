@@ -1,6 +1,6 @@
 <div id="content-center-large">
-<div id="box-title">ARTIKEL UPTD</div>
-	<div id="box-index">+ INPUT/UPDATE ARTIKEL UPTD</div>
+<div id="box-title">BERITA UPTD</div>
+	<div id="box-index">+ INPUT/UPDATE BERITA UPTD</div>
 	<div id="box-line"></div>
 	<div class="cleaner_h20"></div>
 	<?php echo validation_errors(); ?>

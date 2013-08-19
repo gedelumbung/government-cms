@@ -502,7 +502,7 @@ class app_global_model extends CI_Model {
 			Ditulis oleh : '.$h->usr.' - Unit Kerja : '.$h->unit_kerja.'
 			</span>
 			<div id="news-list-detail">
-			<img src="'.base_url().'asset/images/berita/thumb/'.$h->gambar.'" />
+			<img src="'.base_url().'asset/images/berita-pengawas/thumb/'.$h->gambar.'" />
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
 			'.$h->isi.'
 			</div>';
@@ -759,7 +759,7 @@ class app_global_model extends CI_Model {
 		foreach($w->result() as $h)
 		{
 			$hasil .= '<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div><div style="float:none; width:380px; font-size:12px; font-weight:bold; padding-top:5px;">
-			Ditulis oleh : '.$h->usr.' - Bidang : '.$h->unit_kerja.'
+			Ditulis oleh : '.$h->usr.' - Unit Kerja : '.$h->unit_kerja.'
 			</div>
 			<div id="news-list-detail">
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
@@ -913,7 +913,7 @@ class app_global_model extends CI_Model {
 			<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div>
 			<div class="cleaner_h10"></div>
 			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
-			Ditulis oleh : '.$h->usr.' - Sekolah : '.$h->kecamatan.'
+			Ditulis oleh : '.$h->usr.' - UPTD Pendidikan Kecamatan : '.$h->kecamatan.'
 			</span>
 			<div id="news-list-detail">
 			<img src="'.base_url().'asset/images/artikel-uptd/thumb/'.$h->gambar.'" />
@@ -937,10 +937,10 @@ class app_global_model extends CI_Model {
 			<div id="detail-title-news">'.$h->judul.'<div class="cleaner_h10"></div></div>
 			<div class="cleaner_h10"></div>
 			<span style="float:none; width:380px; font-size:12px; font-weight:bold; text-align:right; padding-top:3px;">
-			Ditulis oleh : '.$h->usr.' - Sekolah : '.$h->unit_kerja.'
+			Ditulis oleh : '.$h->usr.' - Unit Kerja : '.$h->unit_kerja.'
 			</span>
 			<div id="news-list-detail">
-			<img src="'.base_url().'asset/images/artikel-uptd/thumb/'.$h->gambar.'" />
+			<img src="'.base_url().'asset/images/artikel-pengawas/thumb/'.$h->gambar.'" />
 			<h4>'.generate_tanggal(gmdate('d/m/Y-H:i:s',$h->tanggal)).' WIB</h4>
 			'.$h->isi.'
 			</div>';
@@ -1657,7 +1657,7 @@ class app_global_model extends CI_Model {
 			}
 		}
 
-		$tot_hal = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, a.tempat_lahir, 
+		$tot_hal = $this->db->query("select a.nama, a.nip, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, a.tempat_lahir, 
 		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_sekolah_guru a left join dlmbg_sekolah_profil b on a.id_sekolah=b.id_sekolah_profil
 		left join dlmbg_super_jenjang_pendidikan c on a.id_jenjang_pendidikan=c.id_super_jenjang_pendidikan 
 		".$query_add."");
@@ -1671,7 +1671,7 @@ class app_global_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, a.tempat_lahir, 
+		$w = $this->db->query("select a.nama, a.nip, a.nuptk, a.status_pns, a.golongan, a.tugas, b.nama_sekolah, a.tempat_lahir, 
 		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_sekolah_guru a left join dlmbg_sekolah_profil b on a.id_sekolah=b.id_sekolah_profil
 		left join dlmbg_super_jenjang_pendidikan c on a.id_jenjang_pendidikan=c.id_super_jenjang_pendidikan  
 		 ".$query_add." order by a.nama ASC LIMIT ".$offset.",".$limit."");
@@ -1680,12 +1680,12 @@ class app_global_model extends CI_Model {
 					<tr bgcolor='#F2F2F2' align='center'>
 					<td>No.</td>
 					<td>Nama</td>
-					<td>Jenis Kelamin</td>
-					<td>Status PNS</td>
+					<td>NIP</td>
+					<td>Status Kepegawaian</td>
 					<td>Golongan</td>
 					<td>Tugas Sebagai</td>
 					<td>Tempat Tugas</td>
-					<td>Tempat Lahir</td>
+					<td>NUPTK</td>
 					<td>Usia</td>
 					<td>MK</td>
 					</tr>";
@@ -1695,12 +1695,12 @@ class app_global_model extends CI_Model {
 			$hasil .= "<tr>
 					<td>".$i."</td>
 					<td>".$h->nama."</td>
-					<td>".$h->jk."</td>
+					<td>".$h->nip."</td>
 					<td>".$h->status_pns."</td>
 					<td>".$h->golongan."</td>
 					<td>".$h->tugas."</td>
 					<td>".$h->nama_sekolah."</td>
-					<td>".$h->tempat_lahir."</td>
+					<td>".$h->nuptk."</td>
 					<td>".selisih_tanggah($h->tanggal_lahir,date("m/d/Y"))."</td>
 					<td>".selisih_tanggah($h->tanggal_bertugas,date("m/d/Y"))."</td>
 					</tr>";
@@ -1729,7 +1729,7 @@ class app_global_model extends CI_Model {
 			}
 		}
 
-		$tot_hal = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.tempat_lahir, 
+		$tot_hal = $this->db->query("select a.nama, a.nip, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.kontak, 
 		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan
 		".$query_add."");
 		$config['base_url'] = base_url() . 'web/data_pegawai/index/';
@@ -1742,7 +1742,7 @@ class app_global_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->query("select a.nama, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.tempat_lahir, 
+		$w = $this->db->query("select a.nama, a.nip, a.status_pns, a.golongan, a.tugas, b.kecamatan, a.kontak, 
 		a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on a.id_kecamatan=b.id_super_kecamatan 
 		 ".$query_add." order by a.nama ASC LIMIT ".$offset.",".$limit."");
 		
@@ -1750,12 +1750,12 @@ class app_global_model extends CI_Model {
 					<tr bgcolor='#F2F2F2' align='center'>
 					<td>No.</td>
 					<td>Nama</td>
-					<td>Jenis Kelamin</td>
-					<td>Status PNS</td>
+					<td>NIP</td>
+					<td>Status Kepegawaian</td>
 					<td>Golongan</td>
 					<td>Tugas Sebagai</td>
 					<td>Kecamatan</td>
-					<td>Tempat Lahir</td>
+					<td>No Telp</td>
 					<td>Usia</td>
 					<td>MK</td>
 					</tr>";
@@ -1765,12 +1765,12 @@ class app_global_model extends CI_Model {
 			$hasil .= "<tr>
 					<td>".$i."</td>
 					<td>".$h->nama."</td>
-					<td>".$h->jk."</td>
+					<td>".$h->nip."</td>
 					<td>".$h->status_pns."</td>
 					<td>".$h->golongan."</td>
 					<td>".$h->tugas."</td>
 					<td>".$h->kecamatan."</td>
-					<td>".$h->tempat_lahir."</td>
+					<td>".$h->kontak."</td>
 					<td>".selisih_tanggah($h->tanggal_lahir,date("m/d/Y"))."</td>
 					<td>".selisih_tanggah($h->tanggal_bertugas,date("m/d/Y"))."</td>
 					</tr>";
@@ -1814,7 +1814,7 @@ class app_global_model extends CI_Model {
 		dlmbg_sekolah_profil b on a.id_sekolah=b.id_sekolah_profil left join dlmbg_super_jenjang_pendidikan c 
 		on a.id_jenjang_pendidikan=c.id_super_jenjang_pendidikan left join dlmbg_super_kecamatan d on a.id_kecamatan=d.id_super_kecamatan
 		".$query_add."");
-		$config['base_url'] = base_url() . 'web/data_guru/index/';
+		$config['base_url'] = base_url() . 'web/data_siswa/index/';
 		$config['total_rows'] = $tot_hal->num_rows();
 		$config['per_page'] = $limit;
 		$config['uri_segment'] = 4;

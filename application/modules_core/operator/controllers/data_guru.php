@@ -61,6 +61,8 @@ class data_guru extends MX_Controller {
 			$d['tempat_lahir'] = "";
 			$d['tanggal_lahir'] = "";
 			$d['tanggal_bertugas'] = "";
+			$d['nip'] = "";
+			$d['nuptk'] = "";
 			
 			$d['id_param'] = "";
 			$d['tipe'] = "tambah";
@@ -105,6 +107,8 @@ class data_guru extends MX_Controller {
 			$d['tempat_lahir'] = $get->tempat_lahir;
 			$d['tanggal_lahir'] = $get->tanggal_lahir;
 			$d['tanggal_bertugas'] = $get->tanggal_bertugas;
+			$d['nip'] = $get->nip;
+			$d['nuptk'] = $get->nuptk;
 			
 			$d['id_param'] = $get->id_sekolah_guru;
 			$d['tipe'] = "edit";
@@ -140,6 +144,8 @@ class data_guru extends MX_Controller {
 				$in['tempat_lahir'] = $this->input->post("tempat_lahir");
 				$in['tanggal_lahir'] = $this->input->post("tanggal_lahir");
 				$in['tanggal_bertugas'] = $this->input->post("tanggal_bertugas");
+				$in['nip'] = $this->input->post("nip");
+				$in['nuptk'] = $this->input->post("nuptk");
 				
 				$this->db->insert("dlmbg_sekolah_guru",$in);
 			}
@@ -156,6 +162,8 @@ class data_guru extends MX_Controller {
 				$in['tempat_lahir'] = $this->input->post("tempat_lahir");
 				$in['tanggal_lahir'] = $this->input->post("tanggal_lahir");
 				$in['tanggal_bertugas'] = $this->input->post("tanggal_bertugas");
+				$in['nip'] = $this->input->post("nip");
+				$in['nuptk'] = $this->input->post("nuptk");
 				
 				$this->db->update("dlmbg_sekolah_guru",$in,$id);
 			}

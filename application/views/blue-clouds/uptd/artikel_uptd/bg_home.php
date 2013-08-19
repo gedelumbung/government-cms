@@ -1,6 +1,6 @@
 <div id="content-center-large">
-<div id="box-title">DATA ARTIKEL UPTD</div>
-	<div id="box-index">+ INDEXS ARTIKEL UPTD</div>
+<div id="box-title">DATA BERITA UPTD</div>
+	<div id="box-index">+ INDEXS BERITA UPTD</div>
 	<div id="box-line"></div>
 	<div class="cleaner_h20"></div>
 	<?php echo form_open("uptd/artikel_uptd/set"); ?>

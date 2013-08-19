@@ -45,8 +45,8 @@ class app_global_uptd_model extends CI_Model {
 			}
 		}
 
-		$tot_hal = $this->db->query("select a.nama, a.id_uptd_pegawai, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan,
-		a.tempat_lahir, a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on 
+		$tot_hal = $this->db->query("select a.nama, a.id_uptd_pegawai, a.nip, a.status_pns, a.golongan, a.tugas, b.kecamatan,
+		a.kontak, a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on 
 		a.id_kecamatan=b.id_super_kecamatan where a.id_kecamatan='".$this->session->userdata("id_kecamatan")."' ".$query_add."");
 		
 		$config['base_url'] = base_url() . 'uptd/data_pegawai/index/';
@@ -59,20 +59,20 @@ class app_global_uptd_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->query("select a.nama, a.id_uptd_pegawai, a.jk, a.status_pns, a.golongan, a.tugas, b.kecamatan,
-		a.tempat_lahir, a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on 
+		$w = $this->db->query("select a.nama, a.id_uptd_pegawai, a.nip, a.status_pns, a.golongan, a.tugas, b.kecamatan,
+		a.kontak, a.tanggal_lahir, a.tanggal_bertugas from dlmbg_uptd_pegawai a left join dlmbg_super_kecamatan b on 
 		a.id_kecamatan=b.id_super_kecamatan where a.id_kecamatan='".$this->session->userdata("id_kecamatan")."' ".$query_add." order by a.nama ASC LIMIT ".$offset.",".$limit."");
 		
 		$hasil .= "<table width='100%' style='border-collapse:collapse;' cellpadding='8' cellspacing='0' border='1' width='100%'>
 					<tr bgcolor='#F2F2F2' align='center'>
 					<td>No.</td>
 					<td>Nama</td>
-					<td>Jenis Kelamin</td>
-					<td>Status PNS</td>
+					<td>NIP</td>
+					<td>Status Kepegawaian</td>
 					<td>Golongan</td>
 					<td>Tugas Sebagai</td>
 					<td>Tempat Tugas</td>
-					<td>Tempat Lahir</td>
+					<td>No Telp</td>
 					<td>Usia</td>
 					<td>MK</td>
 					<td bgcolor='#000' colspan='2'><a href='".base_url()."uptd/data_pegawai/tambah'>Tambah</a></td>
@@ -83,12 +83,12 @@ class app_global_uptd_model extends CI_Model {
 			$hasil .= "<tr>
 					<td>".$i."</td>
 					<td>".$h->nama."</td>
-					<td>".$h->jk."</td>
+					<td>".$h->nip."</td>
 					<td>".$h->status_pns."</td>
 					<td>".$h->golongan."</td>
 					<td>".$h->tugas."</td>
 					<td>".$h->kecamatan."</td>
-					<td>".$h->tempat_lahir."</td>
+					<td>".$h->kontak."</td>
 					<td>".selisih_tanggah($h->tanggal_lahir,date("m/d/Y"))."</td>
 					<td>".selisih_tanggah($h->tanggal_bertugas,date("m/d/Y"))."</td>
 					<td bgcolor='000'><a href='".base_url()."uptd/data_pegawai/edit/".$h->id_uptd_pegawai."'>Edit</a></td>
